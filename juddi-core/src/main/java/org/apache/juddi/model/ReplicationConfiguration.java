@@ -191,21 +191,19 @@ public class ReplicationConfiguration implements Serializable {
                 this.node = nodes;
         }
 
-        //@javax.persistence.Transient
         @OneToMany(targetEntity = ControlMessage.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-        public List<ControlMessage> getControlMessage() {
+        public List<ControlMessage> getControlledMessage() {
                 if (controlledMessage == null) {
                         controlledMessage = new ArrayList<ControlMessage>();
                 }
                 return this.controlledMessage;
         }
 
-        public void setControlMessage(List<ControlMessage> controlledMessages) {
+        public void setControlledMessage(List<ControlMessage> controlledMessages) {
 
                 this.controlledMessage = controlledMessages;
         }
 
-        // @OneToMany( fetch = FetchType.LAZY,targetEntity = Edge.class, mappedBy = "Edge")
         @OneToMany(targetEntity = Edge.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
         public List<Edge> getEdge() {
                 return this.edge;

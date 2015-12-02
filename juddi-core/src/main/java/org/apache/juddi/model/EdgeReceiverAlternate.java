@@ -15,54 +15,47 @@
  */
 package org.apache.juddi.model;
 
+import javax.persistence.*;
 import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 
 /**
- *
  * @author alex
  */
 @Entity
 @Table(name = "j3_chg_replcfgear")
-public class EdgeReceiverAlternate implements Serializable{
-        private static final long serialVersionUID = -3199894835641632162L;
-       Long id;
-       String rx;
-       
-               @Id
-        @GeneratedValue(strategy = GenerationType.AUTO)
-        public Long getId() {
-                return id;
-        }
+public class EdgeReceiverAlternate implements Serializable {
+    private static final long serialVersionUID = -3199894835641632162L;
+    Long id;
+    String rx;
 
-        public void setId(Long id) {
-                this.id = id;
-        }
-        
-         @ManyToOne(fetch = FetchType.LAZY, targetEntity = Edge.class)
-	@JoinColumn(name = "entity_key_ed", nullable = false)
-         public Edge getParent(){
-                 return this.edge;
-         }
-         private Edge edge;
-         public void setParent(Edge e){
-                 this.edge = e;
-         }
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    public Long getId() {
+        return id;
+    }
 
-         @Column
-         public String getReceiverAlternate() {
-                return this.rx;
-        }
-         
-        public void setReceiverAlternate(String s) {
-                this.rx = s;
-        }
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Edge.class, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "entity_key_ed", nullable = false)
+    public Edge getParent() {
+        return this.edge;
+    }
+
+    private Edge edge;
+
+    public void setParent(Edge e) {
+        this.edge = e;
+    }
+
+    @Column
+    public String getReceiverAlternate() {
+        return this.rx;
+    }
+
+    public void setReceiverAlternate(String s) {
+        this.rx = s;
+    }
 }

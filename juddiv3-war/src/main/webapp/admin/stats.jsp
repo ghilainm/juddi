@@ -151,7 +151,7 @@
             }
         }
         try {
-            return this.getServletContext().getResource(resourceName).toExternalForm();
+            return getServletConfig().getServletContext().getResource(resourceName).toExternalForm();
         } catch (Exception ex) {
         }
         return null;

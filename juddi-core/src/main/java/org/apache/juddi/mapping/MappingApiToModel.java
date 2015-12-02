@@ -22,7 +22,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.HashSet;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.xml.bind.JAXB;
@@ -42,7 +41,6 @@ import org.apache.juddi.model.Edge;
 import org.apache.juddi.model.EdgeReceiverAlternate;
 import org.apache.juddi.model.KeyDataValue;
 import org.apache.juddi.model.KeyInfo;
-import org.apache.juddi.model.Node;
 import org.apache.juddi.model.Operator;
 import org.apache.juddi.model.OperatorStatusType;
 import org.apache.juddi.model.Publisher;
@@ -67,7 +65,6 @@ import org.uddi.repl_v3.ReplicationConfiguration;
 import org.uddi.sub_v3.ObjectFactory;
 import org.uddi.v3_service.DispositionReportFaultMessage;
 import org.w3._2000._09.xmldsig_.DSAKeyValueType;
-import org.w3._2000._09.xmldsig_.KeyInfoType;
 import org.w3._2000._09.xmldsig_.KeyValueType;
 import org.w3._2000._09.xmldsig_.PGPDataType;
 import org.w3._2000._09.xmldsig_.RSAKeyValueType;
@@ -1607,13 +1604,13 @@ public class MappingApiToModel {
                  * controlledMessage element.
                  */
                 if (communicationGraph.getControlledMessage() != null) {
-                        model.setControlMessage(new ArrayList<ControlMessage>());
+                        model.setControlledMessage(new ArrayList<ControlMessage>());
 
                         for (int k = 0; k < communicationGraph.getControlledMessage().size(); k++) {
                                 ControlMessage BC = new ControlMessage(communicationGraph.getControlledMessage().get(k));
                                 BC.setReplicationConfiguration(model);
 
-                                model.getControlMessage().add(BC);
+                                model.getControlledMessage().add(BC);
                         }
                 }
 

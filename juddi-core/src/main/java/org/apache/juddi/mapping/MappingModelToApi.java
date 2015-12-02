@@ -57,10 +57,8 @@ import org.apache.juddi.model.SignatureValue;
 import org.apache.juddi.model.SignedInfo;
 import org.apache.juddi.model.UddiEntity;
 import org.apache.juddi.model.KeyDataValue;
-import org.apache.juddi.model.Node;
 import org.apache.juddi.model.ReplicationConfiguration;
 import org.apache.juddi.model.ReplicationConfigurationNode;
-import org.apache.juddi.model.Signature;
 import org.apache.juddi.model.SignatureTransformDataValue;
 import org.apache.juddi.subscription.TypeConvertor;
 import org.apache.juddi.v3.error.ErrorMessage;
@@ -1295,7 +1293,7 @@ public class MappingModelToApi {
              CommunicationGraph api) {
 
                 mapEdge(model.getEdge(), api.getEdge());
-                mapControlMessages(model.getControlMessage(), api.getControlledMessage());
+                mapControlMessages(model.getControlledMessage(), api.getControlledMessage());
                 mapEdgeNodes(model.getNode(), api.getNode());
 
         }

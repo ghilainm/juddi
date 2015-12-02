@@ -15,58 +15,50 @@
  */
 package org.apache.juddi.model;
 
+import javax.persistence.*;
 import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 
 /**
- *
  * @author alex
  */
 @Entity
 @Table(name = "j3_chg_replconfn")
 public class ReplicationConfigurationNode implements Serializable {
 
-        private static final long serialVersionUID = 1L;
-        private Long id;
-        private ReplicationConfiguration parent;
-        String rx;
+    private static final long serialVersionUID = 1L;
+    private Long id;
+    private ReplicationConfiguration parent;
+    String rx;
 
-        @Id
-        @GeneratedValue(strategy = GenerationType.AUTO)
-        public Long getId() {
-                return id;
-        }
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    public Long getId() {
+        return id;
+    }
 
-        public void setId(Long id) {
-                this.id = id;
-        }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-        @ManyToOne(fetch = FetchType.LAZY)
-        @JoinColumn(name = "entity_key_ed", nullable = false)
-        public ReplicationConfiguration getParent() {
-                return this.parent;
-        }
-        private Edge edge;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "entity_key_ed", nullable = false)
+    public ReplicationConfiguration getParent() {
+        return this.parent;
+    }
 
-        public void setParent(ReplicationConfiguration e) {
-                this.parent = e;
-        }
+    private Edge edge;
 
-        @Column
-        public String getNodeName() {
-                return this.rx;
-        }
+    public void setParent(ReplicationConfiguration e) {
+        this.parent = e;
+    }
 
-        public void setNodeName(String s) {
-                this.rx = s;
-        }
+    @Column
+    public String getNodeName() {
+        return this.rx;
+    }
+
+    public void setNodeName(String s) {
+        this.rx = s;
+    }
 
 }

@@ -1,0 +1,107 @@
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<entity-mappings
+        xmlns="http://java.sun.com/xml/ns/persistence/orm"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm classpath:schemas/orm_1_0.xsd"
+        version="1.0">
+
+    <sequence-generator name="juddi_sequence" sequence-name="juddi_sequence"/>
+
+    <entity class="org.apache.juddi.model.PublisherAssertion">
+        <attributes>
+            <one-to-many name="signatures" fetch="LAZY">
+                <join-table name="j3_publish_asser_j3_signature"/>
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </one-to-many>
+        </attributes>
+    </entity>
+
+    <entity class="org.apache.juddi.model.BindingTemplate">
+        <attributes>
+            <basic name="accessPointUrl">
+                <lob/>
+            </basic>
+        </attributes>
+    </entity>
+
+    <entity class="org.apache.juddi.model.DiscoveryUrl">
+        <attributes>
+            <basic name="url">
+                <lob/>
+            </basic>
+        </attributes>
+    </entity>
+    <entity class="org.apache.juddi.model.Email">
+        <attributes>
+            <basic name="emailAddress">
+                <lob/>
+            </basic>
+        </attributes>
+    </entity>
+    <entity class="org.apache.juddi.model.TmodelInstanceInfo">
+        <attributes>
+            <basic name="instanceParms">
+                <lob/>
+            </basic>
+        </attributes>
+    </entity>
+    <entity class="org.apache.juddi.model.ReplicationConfiguration">
+        <attributes>
+            <one-to-many name="controlledMessage" fetch="LAZY">
+                <join-table name="j3_chg_replconf_J3_CTRL_MSG">
+                    <join-column name="replication_conf_serialnumb"/>
+                    <inverse-join-column name="controlMessage_ID"/>
+                </join-table>
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </one-to-many>
+            <one-to-many name="edge" fetch="LAZY">
+                <join-table name="j3_chg_replconf_j3_edge">
+                    <join-column name="replication_conf_serialnumb"/>
+                    <inverse-join-column name="edge_ID"/>
+                </join-table>
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </one-to-many>
+            <one-to-many name="node" fetch="LAZY">
+                <join-table name="j3_chg_replconf_chg_replconfn">
+                    <join-column name="replication_conf_serialnumb"/>
+                    <inverse-join-column name="node_ID"/>
+                </join-table>
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </one-to-many>
+            <one-to-many name="operator" fetch="LAZY">
+                <join-table name="j3_chg_replconf_j3_operator">
+                    <join-column name="replication_conf_serialnumb"/>
+                    <inverse-join-column name="operator_ID"/>
+                </join-table>
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </one-to-many>
+        </attributes>
+    </entity>
+</entity-mappings>
