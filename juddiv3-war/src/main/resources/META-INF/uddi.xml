@@ -27,14 +27,14 @@ under the License.
                 <description>Main jUDDI node</description>
                 <!-- JAX-WS Transport -->
                 <proxyTransport>org.apache.juddi.v3.client.transport.JAXWSTransport</proxyTransport>
-                <custodyTransferUrl>http://localhost:8080/juddiv3/services/custody-transfer</custodyTransferUrl>
-                <inquiryUrl>http://localhost:8080/juddiv3/services/inquiry</inquiryUrl>
-				<inquiryRESTUrl>http://localhost:8080/juddiv3/services/inquiryRest</inquiryRESTUrl>
-                <publishUrl>http://localhost:8080/juddiv3/services/publish</publishUrl>
-                <securityUrl>http://localhost:8080/juddiv3/services/security</securityUrl>
-                <subscriptionUrl>http://localhost:8080/juddiv3/services/subscription</subscriptionUrl>
-                <subscriptionListenerUrl>http://localhost:8080/juddiv3/services/subscription-listener</subscriptionListenerUrl>
-                <juddiApiUrl>http://localhost:8080/juddiv3/services/juddi-api</juddiApiUrl>
+                <custodyTransferUrl>${juddi.http.url}/services/custody-transfer</custodyTransferUrl>
+                <inquiryUrl>${juddi.http.url}/services/inquiry</inquiryUrl>
+				<inquiryRESTUrl>${juddi.http.url}/services/inquiryRest</inquiryRESTUrl>
+                <publishUrl>${juddi.http.url}/services/publish</publishUrl>
+                <securityUrl>${juddi.http.url}/services/security</securityUrl>
+                <subscriptionUrl>${juddi.http.url}/services/subscription</subscriptionUrl>
+                <subscriptionListenerUrl>${juddi.http.url}/services/subscription-listener</subscriptionListenerUrl>
+                <juddiApiUrl>${juddi.http.url}/services/juddi-api</juddiApiUrl>
             </node>
             <node>
                 <name>default</name> 

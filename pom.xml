@@ -44,6 +44,11 @@ under the License.
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <cxf.version>2.7.14</cxf.version>
         <springframework.version>3.2.2.RELEASE</springframework.version>
+        <juddi.hostname>localhost</juddi.hostname>
+        <juddi.http.port>8080</juddi.http.port>
+        <juddi.https.port>8443</juddi.https.port>
+        <juddi.http.url>http://${juddi.hostname}:${juddi.http.port}/juddiv3</juddi.http.url>
+            <juddi.https.url>http://${juddi.hostname}:${juddi.https.port}/juddiv3</juddi.https.url>
     </properties>
 
     <issueManagement>

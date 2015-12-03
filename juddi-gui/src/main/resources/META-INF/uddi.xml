@@ -32,11 +32,11 @@ It currently does not use the ValueSet, jUDDI, Replication, or REST APIs
                 <description>UDDIv3 Node (localhost)</description>
                 <!-- JAX-WS Transport -->
                 <proxyTransport>org.apache.juddi.v3.client.transport.JAXWSTransport</proxyTransport>
-                <custodyTransferUrl>http://localhost:8555/juddiv3/services/custody-transfer</custodyTransferUrl>
-                <inquiryUrl>http://localhost:8555/juddiv3/services/inquiry</inquiryUrl>
-                <publishUrl>http://localhost:8555/juddiv3/services/publish</publishUrl>
-                <securityUrl>http://localhost:8555/juddiv3/services/security</securityUrl>
-                <subscriptionUrl>http://localhost:8555/juddiv3/services/subscription</subscriptionUrl>
+                <custodyTransferUrl>${juddi.http.url}/services/custody-transfer</custodyTransferUrl>
+                <inquiryUrl>${juddi.http.url}/services/inquiry</inquiryUrl>
+                <publishUrl>${juddi.http.url}/services/publish</publishUrl>
+                <securityUrl>${juddi.http.url}/services/security</securityUrl>
+                <subscriptionUrl>${juddi.http.url}/services/subscription</subscriptionUrl>
             </node>
 			<node>
                 <!-- for jUDDI v0.9 to 2.0.1 -->
@@ -44,8 +44,8 @@ It currently does not use the ValueSet, jUDDI, Replication, or REST APIs
                 <description>UDDIv2 Node (localhost)</description>
                 <!-- JAX-WS Transport -->
                 <proxyTransport>org.apache.juddi.v3.client.transport.JAXWSv2TranslationTransport</proxyTransport>
-                <inquiryUrl>http://localhost:8555/juddiv3/services/inquiryv2</inquiryUrl>
-                <publishUrl>http://localhost:8555/juddiv3/services/publishv2</publishUrl>
+                <inquiryUrl>${juddi.http.url}/services/inquiryv2</inquiryUrl>
+                <publishUrl>${juddi.http.url}/services/publishv2</publishUrl>
                 
             </node>
              <node>
@@ -54,10 +54,10 @@ It currently does not use the ValueSet, jUDDI, Replication, or REST APIs
                 <!-- JAX-WS Transport -->
                 <proxyTransport>org.apache.juddi.v3.client.transport.JAXWSTransport</proxyTransport>
                 <custodyTransferUrl>http://localhost:8443/juddiv3/services/custody-transfer</custodyTransferUrl>
-                <inquiryUrl>https://localhost:8443/juddiv3/services/inquiry</inquiryUrl>
-                <publishUrl>https://localhost:8443/juddiv3/services/publish</publishUrl>
-                <securityUrl>https://localhost:8443/juddiv3/services/security</securityUrl>
-                <subscriptionUrl>https://localhost:8443/juddiv3/services/subscription</subscriptionUrl>
+                <inquiryUrl>${juddi.https.url}/services/inquiry</inquiryUrl>
+                <publishUrl>${juddi.https.url}/services/publish</publishUrl>
+                <securityUrl>${juddi.https.url}/services/security</securityUrl>
+                <subscriptionUrl>${juddi.https.url}/services/subscription</subscriptionUrl>
             </node>
             <node>
                 <name>jboss7</name> 
@@ -66,12 +66,12 @@ It currently does not use the ValueSet, jUDDI, Replication, or REST APIs
                 <proxyTransport>org.apache.juddi.v3.client.transport.JAXWSTransport</proxyTransport>
                 <!-- 
                 Jboss users, note that the url is typically different, here's an example for Jboss EAP 6.x-->
-                <custodyTransferUrl>http://localhost:8555/juddiv3/UDDICustodyTransferService</custodyTransferUrl>
-                <inquiryUrl>http://localhost:8555/juddiv3/UDDIInquiryService</inquiryUrl>
-                <publishUrl>http://localhost:8555/juddiv3/UDDIPublicationService</publishUrl>
-                <securityUrl>http://localhost:8555/juddiv3/UDDISecurityService</securityUrl>
-                <subscriptionUrl>http://localhost:8555/juddiv3/UDDISubscriptionService</subscriptionUrl>
-                <subscriptionListenerUrl>http://localhost:8555/juddiv3/UDDISubscriptionListenerService</subscriptionListenerUrl>
+                <custodyTransferUrl>${juddi.http.url}/UDDICustodyTransferService</custodyTransferUrl>
+                <inquiryUrl>${juddi.http.url}/UDDIInquiryService</inquiryUrl>
+                <publishUrl>${juddi.http.url}/UDDIPublicationService</publishUrl>
+                <securityUrl>${juddi.http.url}/UDDISecurityService</securityUrl>
+                <subscriptionUrl>${juddi.http.url}/UDDISubscriptionService</subscriptionUrl>
+                <subscriptionListenerUrl>${juddi.http.url}/UDDISubscriptionListenerService</subscriptionListenerUrl>
             </node>
              <node>
                 <name>jboss7-ssl</name> 
@@ -80,11 +80,11 @@ It currently does not use the ValueSet, jUDDI, Replication, or REST APIs
                 <proxyTransport>org.apache.juddi.v3.client.transport.JAXWSTransport</proxyTransport>
                 <!-- 
                 Jboss users, note that the url is typically different, here's an example for Jboss EAP 6.x-->
-                <custodyTransferUrl>https://localhost:8443/juddiv3/UDDICustodyTransferService</custodyTransferUrl>
-                <inquiryUrl>https://localhost:8443/juddiv3/UDDIInquiryService</inquiryUrl>
-                <publishUrl>https://localhost:8443/juddiv3/UDDIPublicationService</publishUrl>
-                <securityUrl>https://localhost:8443/juddiv3/UDDISecurityService</securityUrl>
-                <subscriptionUrl>https://localhost:8443/juddiv3/UDDISubscriptionService</subscriptionUrl>
+                <custodyTransferUrl>${juddi.https.url}/UDDICustodyTransferService</custodyTransferUrl>
+                <inquiryUrl>${juddi.https.url}/UDDIInquiryService</inquiryUrl>
+                <publishUrl>${juddi.https.url}/UDDIPublicationService</publishUrl>
+                <securityUrl>${juddi.https.url}/UDDISecurityService</securityUrl>
+                <subscriptionUrl>${juddi.https.url}/UDDISubscriptionService</subscriptionUrl>
             </node>
             <node>
                 <name>jUDDI Cloud Prod</name> 

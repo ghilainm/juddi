@@ -15,6 +15,9 @@ To enable additional output during the build and test project:
 
 To build all of the project modules, including utilities and sample projects, run the majority of the integration tests and documentation (this is our CI build):
 	mvn clean install -Pdist
+
+To build your own version of JUDDI ready to be deployed on your server (custom port/hostname) you can run the following command line:
+    mvn clean install -DskipTests -P server-build-profile -Djuddi.hostname=customHostname -Djuddi.http.port=8555 -Djuddi.https.port=8556
 	
 	
 To attach the debugger to the build process
