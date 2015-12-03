@@ -21,7 +21,7 @@
 
 <%@page import="org.apache.juddi.webconsole.CrossSiteRequestForgeryException"%>
 <%@page import="org.apache.juddi.webconsole.hub.UddiHub"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page%>
 <%
     //this is to catch someone that bookmarked a page after selecting a language
     Cookie[] cookies3 = request.getCookies();
