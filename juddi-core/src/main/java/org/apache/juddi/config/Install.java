@@ -50,6 +50,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
@@ -565,7 +566,7 @@ public class Install {
 
                 if (path.indexOf("!") > 0) {
                     paths = path.split("!");
-                    jf = new JarFile(new File(paths[0]));
+                    jf = getJarFile(paths[0]);
                     en = jf.entries();
                 } else {
                     // Handle Windows / jboss-5.1.0 case
@@ -597,12 +598,21 @@ public class Install {
                 if (jf != null) {
                     jf.close();
                 }
-
             } catch (IOException e) {
+                throw new ConfigurationException(e);
+            }  catch (URISyntaxException e) {
                 throw new ConfigurationException(e);
             }
         }
         return publishers;
+    }
+
+    private static JarFile getJarFile(String path) throws URISyntaxException, IOException {
+        try{
+            return new JarFile(new File(path));
+        } catch (IOException e) {
+            return new JarFile(new File(new URI(path)));
+        }
     }
 
     private static <T> T buildInstallEntity(final String fileName, Class<T> entityClazz, Configuration config) throws JAXBException, IOException, ConfigurationException {
