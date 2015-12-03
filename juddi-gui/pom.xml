@@ -7,7 +7,8 @@ applicable law or agreed to in writing, software * distributed under the
 License is distributed on an "AS IS" BASIS, * WITHOUT WARRANTIES OR CONDITIONS 
 OF ANY KIND, either express or implied. * See the License for the specific 
 language governing permissions and * limitations under the License. * */ -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.apache.juddi</groupId>
@@ -18,6 +19,11 @@ language governing permissions and * limitations under the License. * */ -->
     <packaging>war</packaging>
     <name>jUDDI GUI WAR construction</name>
     <url>http://juddi.apache.org</url>
+
+    <properties>
+        <juddi.security.role>uddiadmin</juddi.security.role>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.apache.juddi</groupId>
@@ -54,8 +60,8 @@ language governing permissions and * limitations under the License. * */ -->
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
-			  <artifactId>commons-lang3</artifactId>
-			  <version>3.2.1</version>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.2.1</version>
         </dependency>
         <dependency>
             <groupId>commons-collections</groupId>
@@ -119,11 +125,12 @@ language governing permissions and * limitations under the License. * */ -->
                     </execution>
                 </executions>
             </plugin>
-			
-			<!-- precompile the jsp files for speed and error catching at build time -->
-			<plugin>
+
+            <!-- precompile the jsp files for speed and error catching at build time -->
+            <plugin>
                 <groupId>org.apache.sling</groupId>
                 <artifactId>maven-jspc-plugin</artifactId>
+                <version>2.0.8</version>
                 <executions>
                     <execution>
                         <id>compile-jsp</id>
@@ -132,48 +139,58 @@ language governing permissions and * limitations under the License. * */ -->
                         </goals>
                     </execution>
                 </executions>
-				<configuration>
-					<sourceDirectory>${project.build.directory}/juddi-gui</sourceDirectory>
-					<outputDirectory>${project.build.directory}/juddi-gui-precompiled</outputDirectory>
-				</configuration>
+                <configuration>
+                    <sourceDirectory>${project.build.directory}/juddi-gui</sourceDirectory>
+                    <outputDirectory>${project.build.directory}/juddi-gui-precompiled</outputDirectory>
+                </configuration>
             </plugin>
-			
-			
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+                    <webResources>
+                        <resource>
+                            <directory>${project.basedir}/src/main/webapp</directory>
+                            <filtering>true</filtering>
+                        </resource>
+                    </webResources>
+                </configuration>
+            </plugin>
         </plugins>
         <pluginManagement>
-        	<plugins>
-        		<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
-        		<plugin>
-        			<groupId>org.eclipse.m2e</groupId>
-        			<artifactId>lifecycle-mapping</artifactId>
-        			<version>1.0.0</version>
-        			<configuration>
-        				<lifecycleMappingMetadata>
-        					<pluginExecutions>
-        						<pluginExecution>
-        							<pluginExecutionFilter>
-        								<groupId>
-        									org.apache.sling
-        								</groupId>
-        								<artifactId>
-        									maven-jspc-plugin
-        								</artifactId>
-        								<versionRange>
-        									[2.0.6,)
-        								</versionRange>
-        								<goals>
-        									<goal>jspc</goal>
-        								</goals>
-        							</pluginExecutionFilter>
-        							<action>
-        								<ignore />
-        							</action>
-        						</pluginExecution>
-        					</pluginExecutions>
-        				</lifecycleMappingMetadata>
-        			</configuration>
-        		</plugin>
-        	</plugins>
+            <plugins>
+                <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+                <plugin>
+                    <groupId>org.eclipse.m2e</groupId>
+                    <artifactId>lifecycle-mapping</artifactId>
+                    <version>1.0.0</version>
+                    <configuration>
+                        <lifecycleMappingMetadata>
+                            <pluginExecutions>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>
+                                            org.apache.sling
+                                        </groupId>
+                                        <artifactId>
+                                            maven-jspc-plugin
+                                        </artifactId>
+                                        <versionRange>
+                                            [2.0.6,)
+                                        </versionRange>
+                                        <goals>
+                                            <goal>jspc</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore/>
+                                    </action>
+                                </pluginExecution>
+                            </pluginExecutions>
+                        </lifecycleMappingMetadata>
+                    </configuration>
+                </plugin>
+            </plugins>
         </pluginManagement>
     </build>
     <profiles>
@@ -187,7 +204,6 @@ language governing permissions and * limitations under the License. * */ -->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-war-plugin</artifactId>
-                        <version>2.4</version>
                         <configuration>
                             <packagingExcludes>
                                 WEB-INF/lib/cxf*.jar,
@@ -200,11 +216,45 @@ language governing permissions and * limitations under the License. * */ -->
                                 <resource>
                                     <directory>JAX-WS/CXF-JBossAS7Up</directory>
                                 </resource>
+                                <resource>
+                                    <directory>${project.basedir}/src/main/webapp</directory>
+                                    <filtering>true</filtering>
+                                </resource>
                             </webResources>
                         </configuration>
                     </plugin>
                 </plugins>
             </build>
-       </profile>
+        </profile>
+        <profile>
+            <!-- Profile necessary to build JUDDI in order to deploy on WebLogic 12c + with
+			 TopLink as JPA provider + Oracle database. -->
+            <id>weblogic-toplink</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <juddi.security.role>Administrator</juddi.security.role>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-war-plugin</artifactId>
+                        <configuration>
+                            <webResources>
+                                <resource>
+                                    <directory>JAX-WS/weblogic-jax-ws</directory>
+                                </resource>
+                                <resource>
+                                    <directory>${project.basedir}/src/main/webapp</directory>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </webResources>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
     </profiles>
 </project>
