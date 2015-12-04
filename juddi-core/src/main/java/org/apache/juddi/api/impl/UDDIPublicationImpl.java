@@ -820,7 +820,6 @@ public class UDDIPublicationImpl extends AuthenticatedService implements UDDIPub
 
                                 setOperationalInfo(em, modelBusinessEntity, publisher);
                                 log.debug("Saving business " + modelBusinessEntity.getEntityKey());
-
                                 em.persist(modelBusinessEntity);
                                 changes.add(getChangeRecord(modelBusinessEntity, apiBusinessEntity, node));
                                 result.getBusinessEntity().add(apiBusinessEntity);

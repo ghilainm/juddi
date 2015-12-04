@@ -15,16 +15,9 @@ package org.apache.juddi.model;
  * limitations under the License.
  */
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
-import javax.persistence.Table;
-import javax.persistence.Transient;
 
 /**
  * @author <a href="mailto:kurt@apache.org">Kurt T Stam</a>
@@ -32,7 +25,6 @@ import javax.persistence.Transient;
  */
 @Entity
 @Table(name = "j3_publisher")
-//@PrimaryKeyJoinColumn(name = "authorized_name")
 public class Publisher extends UddiEntityPublisher implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1960575191518050887L;

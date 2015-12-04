@@ -17,15 +17,14 @@
 
 package org.apache.juddi.config;
 
-import java.util.Properties;
-
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.EntityManager;
-
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import java.util.Properties;
 
 public class PersistenceManager {
 	private static Log log = LogFactory.getLog(PersistenceManager.class);
@@ -44,8 +43,8 @@ public class PersistenceManager {
 			log.error("Error initializing config in PersistenceManager", e);
 			throw new ExceptionInInitializerError(e);
 		}
-		
-		return emf.createEntityManager();
+
+		return new EntityManagerWrapper(emf.createEntityManager());
 	}
 	
 	public static void closeEntityManager() {
