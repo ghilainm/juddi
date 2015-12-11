@@ -2,11 +2,8 @@ package org.apache.juddi.config;
 
 import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaDelete;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.CriteriaUpdate;
 import javax.persistence.metamodel.Metamodel;
-import java.util.List;
 import java.util.Map;
 
 public class EntityManagerWrapper implements EntityManager {
@@ -150,16 +147,6 @@ public class EntityManagerWrapper implements EntityManager {
     }
 
     @Override
-    public Query createQuery(CriteriaUpdate updateQuery) {
-        return entityManager.createQuery(updateQuery);
-    }
-
-    @Override
-    public Query createQuery(CriteriaDelete deleteQuery) {
-        return entityManager.createQuery(deleteQuery);
-    }
-
-    @Override
     public <T> TypedQuery<T> createQuery(String qlString, Class<T> resultClass) {
         return entityManager.createQuery(qlString, resultClass);
     }
@@ -188,35 +175,9 @@ public class EntityManagerWrapper implements EntityManager {
     public Query createNativeQuery(String sqlString, String resultSetMapping) {
         return entityManager.createNativeQuery(sqlString, resultSetMapping);
     }
-
-    @Override
-    public StoredProcedureQuery createNamedStoredProcedureQuery(String name) {
-        return entityManager.createNamedStoredProcedureQuery(name);
-    }
-
-    @Override
-    public StoredProcedureQuery createStoredProcedureQuery(String procedureName) {
-        return entityManager.createStoredProcedureQuery(procedureName);
-    }
-
-    @Override
-    public StoredProcedureQuery createStoredProcedureQuery(String procedureName, Class... resultClasses) {
-        return entityManager.createStoredProcedureQuery(procedureName, resultClasses);
-    }
-
-    @Override
-    public StoredProcedureQuery createStoredProcedureQuery(String procedureName, String... resultSetMappings) {
-        return entityManager.createStoredProcedureQuery(procedureName, resultSetMappings);
-    }
-
     @Override
     public void joinTransaction() {
         entityManager.joinTransaction();
-    }
-
-    @Override
-    public boolean isJoinedToTransaction() {
-        return entityManager.isJoinedToTransaction();
     }
 
     @Override
@@ -257,25 +218,5 @@ public class EntityManagerWrapper implements EntityManager {
     @Override
     public Metamodel getMetamodel() {
         return entityManager.getMetamodel();
-    }
-
-    @Override
-    public <T> EntityGraph<T> createEntityGraph(Class<T> rootType) {
-        return entityManager.createEntityGraph(rootType);
-    }
-
-    @Override
-    public EntityGraph<?> createEntityGraph(String graphName) {
-        return entityManager.createEntityGraph(graphName);
-    }
-
-    @Override
-    public EntityGraph<?> getEntityGraph(String graphName) {
-        return entityManager.getEntityGraph(graphName);
-    }
-
-    @Override
-    public <T> List<EntityGraph<? super T>> getEntityGraphs(Class<T> entityClass) {
-        return entityManager.getEntityGraphs(entityClass);
     }
 }
