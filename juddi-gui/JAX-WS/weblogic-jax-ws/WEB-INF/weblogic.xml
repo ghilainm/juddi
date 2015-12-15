@@ -2,6 +2,13 @@
 <weblogic-web-app xmlns="http://xmlns.oracle.com/weblogic/weblogic-web-app">
     <container-descriptor>
         <prefer-web-inf-classes>false</prefer-web-inf-classes>
+        <prefer-application-resources>
+            <resource-name>uddi_v3_service.wsdl</resource-name>
+        </prefer-application-resources>
         <show-archived-real-path-enabled>true</show-archived-real-path-enabled>
     </container-descriptor>
+    <security-role-assignment>
+        <role-name>${juddi.security.role}</role-name>
+        <principal-name>Administrators</principal-name>
+    </security-role-assignment>
 </weblogic-web-app>

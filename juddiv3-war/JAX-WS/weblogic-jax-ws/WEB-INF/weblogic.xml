@@ -7,4 +7,8 @@
         </prefer-application-resources>
         <show-archived-real-path-enabled>true</show-archived-real-path-enabled>
     </container-descriptor>
+    <security-role-assignment>
+        <role-name>uddiadmin</role-name>
+        <principal-name>Administrators</principal-name>
+    </security-role-assignment>
 </weblogic-web-app>

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE web-app PUBLIC
-        "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
-        "http://java.sun.com/dtd/web-app_2_3.dtd">
-<web-app>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://java.sun.com/xml/ns/javaee"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         id="WebApp_ID" version="3.0">
 
     <display-name>jUDDI</display-name>
     <description>
@@ -11,135 +12,14 @@
 
     <listener>
         <!-- this class setups the encryption key for the session-->
+        <display-name>Startup Servlet listener</display-name>
         <listener-class>org.apache.juddi.adminconsole.StartupServlet</listener-class>
     </listener>
 
-    <servlet>
-        <servlet-name>RegistryServlet</servlet-name>
-        <display-name>Registry Servlet</display-name>
-        <servlet-class>org.apache.juddi.servlets.RegistryServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-
-    <servlet>
-        <servlet-name>NotifyServlet</servlet-name>
-        <display-name>Notify Servlet</display-name>
-        <servlet-class>
-            org.apache.juddi.servlets.NotifyServlet
-        </servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-
-    <servlet>
-        <servlet-name>InquiryService</servlet-name>
-        <servlet-class>org.apache.juddi.api.impl.UDDIInquiryImpl</servlet-class>
-    </servlet>
-
-    <servlet>
-        <servlet-name>InquiryServicev2</servlet-name>
-        <servlet-class>org.apache.juddi.api.impl.UDDIv2InquiryImpl</servlet-class>
-    </servlet>
-
-    <servlet>
-        <servlet-name>PublicationService</servlet-name>
-        <servlet-class>org.apache.juddi.api.impl.UDDIPublicationImpl</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>PublicationServicev2</servlet-name>
-        <servlet-class>org.apache.juddi.api.impl.UDDIv2PublishImpl</servlet-class>
-    </servlet>
-
-    <servlet>
-        <servlet-name>UDDIValueSetWS</servlet-name>
-        <servlet-class>org.jboss.wsf.stack.cxf.CXFServletExt</servlet-class>
-    </servlet>
-
-    <servlet>
-        <servlet-name>UDDIValueSetCachingWS</servlet-name>
-
-        <servlet-class>org.jboss.wsf.stack.cxf.CXFServletExt</servlet-class>
-    </servlet>
-
-    <servlet>
-        <servlet-name>SecurityService</servlet-name>
-        <servlet-class>org.apache.juddi.api.impl.UDDISecurityImpl</servlet-class>
-    </servlet>
-
-    <servlet>
-        <servlet-name>SubscriptionService</servlet-name>
-        <servlet-class>org.apache.juddi.api.impl.UDDISubscriptionImpl</servlet-class>
-    </servlet>
-
-    <servlet>
-        <servlet-name>SubscriptionListenerService</servlet-name>
-        <servlet-class>org.apache.juddi.api.impl.UDDISubscriptionListenerImpl</servlet-class>
-    </servlet>
-
-    <servlet>
-        <servlet-name>CustodyTransferService</servlet-name>
-        <servlet-class>org.apache.juddi.api.impl.UDDICustodyTransferImpl</servlet-class>
-    </servlet>
-
-    <servlet>
-        <servlet-name>JUDDIApiService</servlet-name>
-        <servlet-class>org.apache.juddi.api.impl.JUDDIApiImpl</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>NotifyServlet</servlet-name>
-        <url-pattern>/notify/*</url-pattern>
-    </servlet-mapping>
-
-    <servlet-mapping>
-        <servlet-name>InquiryService</servlet-name>
-        <url-pattern>/services/inquiry</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>InquiryServicev2</servlet-name>
-        <url-pattern>/services/inquiryv2</url-pattern>
-    </servlet-mapping>
-
-    <servlet-mapping>
-        <servlet-name>PublicationService</servlet-name>
-        <url-pattern>/services/publish</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>PublicationServicev2</servlet-name>
-        <url-pattern>/services/publishv2</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>UDDIValueSetCachingWS</servlet-name>
-        <url-pattern>/services/valueset-caching/*</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>UDDIValueSetWS</servlet-name>
-        <url-pattern>/services/valueset-validation/*</url-pattern>
-    </servlet-mapping>
-
-    <servlet-mapping>
-        <servlet-name>SecurityService</servlet-name>
-        <url-pattern>/services/security</url-pattern>
-    </servlet-mapping>
-
-    <servlet-mapping>
-        <servlet-name>SubscriptionService</servlet-name>
-        <url-pattern>/services/subscription</url-pattern>
-    </servlet-mapping>
-
-    <servlet-mapping>
-        <servlet-name>SubscriptionListenerService</servlet-name>
-        <url-pattern>/services/subscription-listener</url-pattern>
-    </servlet-mapping>
-
-    <servlet-mapping>
-        <servlet-name>CustodyTransferService</servlet-name>
-        <url-pattern>/services/custody-transfer</url-pattern>
-    </servlet-mapping>
-
-    <servlet-mapping>
-        <servlet-name>JUDDIApiService</servlet-name>
-        <url-pattern>/services/juddi-api</url-pattern>
-    </servlet-mapping>
+    <listener>
+        <display-name>Registry Servlet listener</display-name>
+        <listener-class>org.apache.juddi.servlets.RegistryServlet</listener-class>
+    </listener>
 
     <welcome-file-list id="WelcomeFileList">
         <welcome-file>index.jsp</welcome-file>
@@ -150,8 +30,6 @@
         <web-resource-collection>
             <web-resource-name>admin</web-resource-name>
             <url-pattern>/admin/*</url-pattern>
-
-
         </web-resource-collection>
         <auth-constraint>
             <role-name>uddiadmin</role-name>
@@ -161,13 +39,13 @@
         </user-data-constraint>
         -->
     </security-constraint>
-    <login-config> 
-        <auth-method>BASIC</auth-method> 
+    <login-config>
+        <auth-method>BASIC</auth-method>
         <!-- you should consider NOT using BASIC is favor of something more secure, see your web app servers documentation for details -->
-        <realm-name>Apache jUDDI - Make sure you're using HTTPS!</realm-name> 
-    </login-config> 
+        <realm-name>Apache jUDDI - Make sure you're using HTTPS!</realm-name>
+    </login-config>
     <security-role>
-        <role-name>Admin</role-name>
+        <role-name>uddiadmin</role-name>
     </security-role>
 </web-app>
     

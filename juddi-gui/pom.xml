@@ -233,9 +233,6 @@ language governing permissions and * limitations under the License. * */ -->
             <activation>
                 <activeByDefault>false</activeByDefault>
             </activation>
-            <properties>
-                <juddi.security.role>Administrator</juddi.security.role>
-            </properties>
             <build>
                 <plugins>
                     <plugin>
