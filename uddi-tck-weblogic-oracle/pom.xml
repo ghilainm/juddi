@@ -50,6 +50,7 @@
                         -Dlocal.hostname=${local.hostname}
                     </argLine>
                     <testFailureIgnore>true</testFailureIgnore>
+                    <skip>true</skip>
                 </configuration>
             </plugin>
             <plugin>
