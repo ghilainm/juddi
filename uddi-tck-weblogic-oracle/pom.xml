@@ -48,7 +48,6 @@
                     <argLine>-Djuddi.http.url=${juddi.http.url} -Djuddi.gui.http.url=${juddi.gui.http.url}
                         -Djava.util.logging.config.file=logging.properties
                         -Dlocal.hostname=${local.hostname}
-                        -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005
                     </argLine>
                     <testFailureIgnore>true</testFailureIgnore>
                 </configuration>
