@@ -72,16 +72,6 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.juddi</groupId>
-			<artifactId>uddi-ws</artifactId>
-			<version>${project.parent.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.juddi</groupId>
-			<artifactId>juddi-client</artifactId>
-			<version>${project.parent.version}</version>
-		</dependency>
-		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
 			<version>3.2.2.RELEASE</version>
@@ -92,23 +82,6 @@
 			<artifactId>spring-context</artifactId>
 			<version>3.2.2.RELEASE</version>
 			<scope>test</scope>
-		</dependency>
-            
-		<dependency>
-			<groupId>org.apache.juddi</groupId>
-			<artifactId>uddi-tck-base</artifactId>
-			<version>${project.parent.version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>commons-configuration</groupId>
-			<artifactId>commons-configuration</artifactId>
-			<version>1.9</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-			<version>3.1</version>
 		</dependency>
         <dependency>
             <groupId>org.hibernate.javax.persistence</groupId>
@@ -184,12 +157,6 @@
 			<artifactId>mockejb</artifactId>
 			<version>0.6-beta2</version>
 			<scope>test</scope>
-		</dependency>
-		
-		<dependency>
-			<groupId>commons-collections</groupId>
-			<artifactId>commons-collections</artifactId>
-			<version>3.2</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
