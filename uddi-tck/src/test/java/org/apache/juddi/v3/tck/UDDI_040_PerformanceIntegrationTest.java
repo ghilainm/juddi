@@ -66,7 +66,7 @@ public class UDDI_040_PerformanceIntegrationTest {
         tckTModelSam.deleteCreatedTModels(authInfoSam);
         manager.stop();
         Iterator<Map.Entry<String, Double>> iterator = data.entrySet().iterator();
-        File f = new File("pref-rpt-" + System.currentTimeMillis() + ".txt");
+        File f = new File("target/pref-rpt-" + System.currentTimeMillis() + ".txt");
         PrintWriter writer = new PrintWriter(f, "UTF-8");
 
         while (iterator.hasNext()) {
