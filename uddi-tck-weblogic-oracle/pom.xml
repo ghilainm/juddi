@@ -52,6 +52,18 @@
                     <testFailureIgnore>true</testFailureIgnore>
                     <skip>true</skip>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>integration-tests-execution</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                        <configuration>
+                            <skip>false</skip>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
