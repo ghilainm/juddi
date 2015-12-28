@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.1.0 http://maven.apache.org/xsd/settings-1.1.0.xsd"
+          xmlns="http://maven.apache.org/SETTINGS/1.1.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <profiles>
+        <!-- This profile is used to build JUDDI, you can also provides those property in the build command line. -->
+        <profile>
+            <id>juddi-build</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <juddi.hostname>localhost</juddi.hostname>
+                <juddi.http.port>8555</juddi.http.port>
+                <!-- Not used -->
+                <juddi.https.port>8556</juddi.https.port>
+            </properties>
+        </profile>
+
+        <!-- This profile is used to run weblogic-toplink JUDDI integration tests, you can also provides those property in the build command line. -->
+        <profile>
+            <id>juddi-weblogic-toplink-integration-tests</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <juddi.http.url>${presentationServerUrlHTTP}/juddiv3/</juddi.http.url>
+                <juddi.gui.http.url>${presentationServerUrlHTTP}/juddi-gui/</juddi.gui.http.url>
+                <local.hostname>localhost</local.hostname>
+            </properties>
+        </profile>
+    </profiles>
+</settings>
