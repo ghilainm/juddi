@@ -26,8 +26,9 @@ public class BPEL_Abstract_IntegrationTest {
     protected static UDDIClient manager;
     static ReadWSDL rw;
 
-    protected static void assumeBPELEnabled() {
-        Assume.assumeTrue(TckPublisher.isBPELEnabled());
+    protected void assumeBPELEnabled() {
+        boolean bpelEnabled = TckPublisher.isBPELEnabled();
+        Assume.assumeTrue(bpelEnabled);
     }
 
     @BeforeClass

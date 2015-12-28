@@ -16,6 +16,8 @@ package org.apache.juddi.v3.bpel;
 
 import junit.framework.Assert;
 import org.apache.commons.configuration.ConfigurationException;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.juddi.v3.client.config.UDDIClerk;
 import org.apache.juddi.v3.client.mapping.URLLocalizerDefaultImpl;
 import org.apache.juddi.v3.client.mapping.wsdl.BPEL2UDDI;
@@ -40,23 +42,27 @@ import java.util.Properties;
 /**
  * @author <a href="mailto:kstam@apache.org">Kurt T Stam</a>
  */
-public class BPEL_020_IntegrationTest extends BPEL_Abstract_IntegrationTest{
-
-    @Before
-    public void checkTestMustBeRun(){
-        assumeBPELEnabled();
-    }
+public class BPEL_020_IntegrationTest extends BPEL_Abstract_IntegrationTest {
+    private static Log logger = LogFactory.getLog(BPEL_020_IntegrationTest.class);
 
     @Before //jUDDI only to add the keygenerator and business
     public void saveRiftSawKeyGenerator() {
+        assumeBPELEnabled();
         tckTModel.saveTModel(authInfoRiftSaw, TckTModel.RIFTSAW_PUBLISHER_TMODEL_XML, TckTModel.RIFTSAW_PUBLISHER_TMODEL_KEY);
         tckBusiness.saveBusiness(authInfoRiftSaw, TckBusiness.RIFTSAW_BUSINESS_XML, TckBusiness.RIFTSAW_BUSINESS_KEY);
     }
 
     @After //jUDDI only to add the keygenerator and business
     public void saveRiftSawKeyGeneratorAfter() {
-        tckBusiness.deleteBusiness(authInfoRiftSaw, TckBusiness.RIFTSAW_BUSINESS_XML, TckBusiness.RIFTSAW_BUSINESS_KEY);
-        tckTModel.deleteTModel(authInfoRiftSaw, TckTModel.RIFTSAW_PUBLISHER_TMODEL_XML, TckTModel.RIFTSAW_PUBLISHER_TMODEL_KEY);
+        // THIS SHOULD BE UNCOMMENTED, but JUNIT fails if two times we call two times the Assume.assumeTrue method with false as parameter.
+        // therefore we were forced to catch exception in the clean up code.
+        //assumeBPELEnabled();
+        try {
+            tckBusiness.deleteBusiness(authInfoRiftSaw, TckBusiness.RIFTSAW_BUSINESS_XML, TckBusiness.RIFTSAW_BUSINESS_KEY);
+            tckTModel.deleteTModel(authInfoRiftSaw, TckTModel.RIFTSAW_PUBLISHER_TMODEL_XML, TckTModel.RIFTSAW_PUBLISHER_TMODEL_KEY);
+        } catch (Exception e) {
+            logger.warn("Error while cleaning the code", e);
+        }
     }
 
     @Test
