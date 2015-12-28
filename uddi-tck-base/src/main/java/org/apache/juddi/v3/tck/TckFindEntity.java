@@ -17,6 +17,7 @@ package org.apache.juddi.v3.tck;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.juddi.jaxb.EntityCreator;
+import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.uddi.api_v3.*;
 import org.uddi.v3_service.DispositionReportFaultMessage;
@@ -26,7 +27,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static junit.framework.Assert.*;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * @author <a href="mailto:kstam@apache.org">Kurt T Stam</a>
@@ -132,8 +135,7 @@ public class TckFindEntity {
             List<BusinessInfo> biList = bInfos.getBusinessInfo();
             if (biList == null || biList.size() == 0)
                 Assert.fail("No result from find business operation");
-            //expecting at least one business
-            Assert.assertTrue("Expecting at least one business.", biList.size() > 1);
+            assertThat("Expecting at least one business.", biList.size(), Matchers.greaterThan(0));
             return biList;
         } catch (Exception e) {
             throw new RuntimeException(e);
