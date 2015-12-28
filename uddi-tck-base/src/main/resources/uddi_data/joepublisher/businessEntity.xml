@@ -74,8 +74,7 @@
                     <ns2:XPath>
                         not(ancestor-or-self::Signature)
                     </ns2:XPath>
-                    <a xmlns="http://mycustomernamespace/" xmlns:myotherothersigprefix="http://www.other2.com/">
-                    </a>
+                    <a xmlns="http://mycustomernamespace/" xmlns:myotherothersigprefix="http://www.other2.com/"/>
                    </ns2:Transform>
               </ns2:Transforms>
               <ns2:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>

@@ -14,28 +14,19 @@ package org.apache.juddi.v3.tck;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import java.util.List;
-import javax.xml.ws.BindingProvider;
-
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.juddi.v3.client.config.UDDIClient;
 import org.apache.juddi.v3.client.transport.Transport;
-import org.junit.AfterClass;
-import org.junit.Assert;
-import org.junit.Assume;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.uddi.api_v3.BusinessInfo;
-import org.uddi.api_v3.BusinessList;
-import org.uddi.api_v3.DeleteBusiness;
-import org.uddi.api_v3.FindBusiness;
-import org.uddi.api_v3.ServiceInfo;
-import org.uddi.api_v3.TModelBag;
+import org.junit.*;
+import org.uddi.api_v3.*;
 import org.uddi.v3_service.UDDIInquiryPortType;
 import org.uddi.v3_service.UDDIPublicationPortType;
 import org.uddi.v3_service.UDDISecurityPortType;
+
+import javax.xml.ws.BindingProvider;
+import java.util.List;
 
 /**
  * Test to verify JUDDI-398
@@ -101,8 +92,7 @@ public class UDDI_110_FindBusinessIntegrationTest {
                         tckBusiness = new TckBusiness(publication, inquiry);
 
                 } catch (Exception e) {
-                        logger.error(e.getMessage(), e);
-                        Assert.fail("Could not obtain authInfo token.");
+                        throw new RuntimeException("Could not get authentication token", e);
                 }
                 JUDDI_300_MultiNodeIntegrationTest.testSetupReplicationConfig();
         }

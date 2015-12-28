@@ -20,11 +20,10 @@
      <parent>
         <groupId>org.apache.juddi</groupId>
         <artifactId>juddi-parent</artifactId>
-        <version>3.3.3-SNAPSHOT</version>
+        <version>3.3.3-TATAFng</version>
     </parent> 
     <groupId>org.apache.juddi</groupId>
     <artifactId>juddi-client-cli</artifactId>
-    <version>3.3.3-SNAPSHOT</version>
     <packaging>bundle</packaging>
 
     <name>jUDDI CLI Client</name>
@@ -55,8 +54,6 @@
             <artifactId>commons-cli</artifactId>
             <version>1.2</version>
         </dependency>
-
-            
     </dependencies>
     <build>
         <plugins>

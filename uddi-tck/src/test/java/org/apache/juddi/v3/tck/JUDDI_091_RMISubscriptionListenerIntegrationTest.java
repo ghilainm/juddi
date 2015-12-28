@@ -14,28 +14,24 @@ package org.apache.juddi.v3.tck;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import org.apache.commons.configuration.ConfigurationException;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.juddi.v3.client.config.UDDIClient;
+import org.apache.juddi.v3.client.transport.Transport;
+import org.junit.*;
+import org.uddi.v3_service.UDDIInquiryPortType;
+import org.uddi.v3_service.UDDIPublicationPortType;
+import org.uddi.v3_service.UDDISecurityPortType;
+import org.uddi.v3_service.UDDISubscriptionPortType;
+
+import javax.xml.ws.BindingProvider;
 import java.net.InetAddress;
 import java.net.URI;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.Iterator;
 import java.util.Random;
-import javax.xml.ws.BindingProvider;
-
-import org.apache.commons.configuration.ConfigurationException;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.juddi.v3.client.config.UDDIClient;
-import org.apache.juddi.v3.client.transport.Transport;
-import org.junit.AfterClass;
-import org.junit.Assert;
-import org.junit.Assume;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.uddi.v3_service.UDDIInquiryPortType;
-import org.uddi.v3_service.UDDIPublicationPortType;
-import org.uddi.v3_service.UDDISecurityPortType;
-import org.uddi.v3_service.UDDISubscriptionPortType;
 
 /**
  * jUDDI specific test
@@ -121,8 +117,7 @@ public class JUDDI_091_RMISubscriptionListenerIntegrationTest {
                         }
 
                 } catch (Exception e) {
-                        logger.error(e.getMessage(), e);
-                        Assert.fail("Could not obtain authInfo token.");
+                        throw new RuntimeException("Could not get authentication token", e);
                 }
                 JUDDI_300_MultiNodeIntegrationTest.testSetupReplicationConfig();
         }

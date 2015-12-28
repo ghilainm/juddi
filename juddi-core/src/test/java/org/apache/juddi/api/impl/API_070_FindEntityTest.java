@@ -14,33 +14,19 @@
  */
 package org.apache.juddi.api.impl;
 
-import java.rmi.RemoteException;
-
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.juddi.Registry;
 import org.apache.juddi.v3.client.UDDIConstants;
-import org.apache.juddi.v3.tck.TckBindingTemplate;
-import org.apache.juddi.v3.tck.TckBusiness;
-import org.apache.juddi.v3.tck.TckBusinessService;
-import org.apache.juddi.v3.tck.TckFindEntity;
-import org.apache.juddi.v3.tck.TckPublisher;
-import org.apache.juddi.v3.tck.TckSecurity;
-import org.apache.juddi.v3.tck.TckTModel;
+import org.apache.juddi.v3.tck.*;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
-import org.uddi.api_v3.CategoryBag;
-import org.uddi.api_v3.FindQualifiers;
-import org.uddi.api_v3.FindTModel;
-import org.uddi.api_v3.KeyedReference;
-import org.uddi.api_v3.Name;
-import org.uddi.api_v3.SaveTModel;
-import org.uddi.api_v3.TModel;
-import org.uddi.api_v3.TModelList;
+import org.uddi.api_v3.*;
+
+import java.rmi.RemoteException;
 
 /**
  * @author <a href="mailto:jfaath@apache.org">Jeff Faath</a>
@@ -67,8 +53,7 @@ public class API_070_FindEntityTest {
                         api010.saveJoePublisher();
                         authInfoJoe = TckSecurity.getAuthToken(new UDDISecurityImpl(), TckPublisher.getJoePublisherId(), TckPublisher.getJoePassword());
                 } catch (RemoteException e) {
-                        logger.error(e.getMessage(), e);
-                        Assert.fail("Could not obtain authInfo token.");
+                        throw new RuntimeException("Could not get authentication token", e);
                 }
         }
 

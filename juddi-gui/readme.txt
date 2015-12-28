@@ -14,7 +14,7 @@ For JBoss Wildly/EAP use
     mvn clean install -Pjboss7up
 For build for WebLogic (you can replaced the placeholder with fixed values or pass them through JVM arguments)
     mvn clean install -DskipTests -P weblogic-toplink -Djuddi.hostname=${registry.hostname} -Djuddi.http.port=${registry.http.port} -Djuddi.https.port=${registry.https.port}
-
+    i.e.: mvn clean install -DskipTests -P weblogic-toplink -Djuddi.hostname=localhost -Djuddi.http.port=8555 -Djuddi.https.port=8556
 2) Deploy
 	copy the war file into any J2EE container that has a soap stack that supports JAX-WS 2.2 or higher
 	and the servlet 2.4 API spec or higher

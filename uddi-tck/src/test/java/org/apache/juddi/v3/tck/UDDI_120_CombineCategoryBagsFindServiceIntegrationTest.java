@@ -102,8 +102,7 @@ public class UDDI_120_CombineCategoryBagsFindServiceIntegrationTest {
                         tckTModel = new TckTModel(publication, inquiry);
                         tckBusiness = new TckBusiness(publication, inquiry);
                 } catch (Exception e) {
-                        logger.error(e.getMessage(), e);
-                        Assert.fail("Could not obtain authInfo token.");
+                        throw new RuntimeException("Could not get authentication token", e);
                 }
                 JUDDI_300_MultiNodeIntegrationTest.testSetupReplicationConfig();
         }

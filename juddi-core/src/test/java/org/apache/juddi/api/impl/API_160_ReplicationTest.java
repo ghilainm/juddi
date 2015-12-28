@@ -85,8 +85,7 @@ public class API_160_ReplicationTest {
                         authInfoRoot = TckSecurity.getAuthToken(security, TckPublisher.getRootPublisherId(), TckPublisher.getRootPassword());
 
                 } catch (RemoteException e) {
-                        logger.error(e.getMessage(), e);
-                        Assert.fail("Could not obtain authInfo token.");
+                        throw new RuntimeException("Could not get authentication token", e);
                 }
 
         }

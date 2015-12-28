@@ -12,7 +12,7 @@ language governing permissions and * limitations under the License. * */ -->
     <parent>
         <groupId>org.apache.juddi</groupId>
         <artifactId>juddi-parent</artifactId>
-        <version>3.3.3-SNAPSHOT</version>
+        <version>3.3.3-TATAFng</version>
     </parent>
     <artifactId>juddi-core</artifactId>
     <packaging>bundle</packaging>
@@ -37,7 +37,8 @@ language governing permissions and * limitations under the License. * */ -->
                             org.apache.juddi.subscription.notify,
                             org.apache.juddi.replication,
                             org.apache.juddi.validation, org.apache.juddi.validation.vsv, org.apache.juddi.v3.auth,
-                            org.apache.juddi.v3.error</Export-Package>
+                            org.apache.juddi.v3.error,
+                            org.apache.juddi.utils</Export-Package>
                         <Include-Resource>juddi_install_data=src/main/resources/juddi_install_data,
                             src/main/resources/messages.properties</Include-Resource>
                     </instructions>

@@ -157,8 +157,7 @@ public class UDDI_080_SubscriptionIntegrationTest {
                         tckTModelUDDI.saveUDDIPublisherTmodel(authInfoUDDI);
                         tckTModelUDDI.saveTModels(authInfoUDDI, TckTModel.TMODELS_XML);
                 } catch (Exception e) {
-                        logger.error(e.getMessage(), e);
-                        Assert.fail("Could not obtain authInfo token.");
+                        throw new RuntimeException("Could not get authentication token", e);
                 }
                 JUDDI_300_MultiNodeIntegrationTest.testSetupReplicationConfig();
         }

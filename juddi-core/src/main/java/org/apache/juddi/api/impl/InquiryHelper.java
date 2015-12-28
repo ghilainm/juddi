@@ -16,62 +16,25 @@
  */
 package org.apache.juddi.api.impl;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import javax.persistence.EntityManager;
-import javax.xml.ws.Holder;
 import org.apache.commons.configuration.ConfigurationException;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.juddi.config.AppConfig;
 import org.apache.juddi.config.Property;
 import org.apache.juddi.mapping.MappingModelToApi;
-import org.apache.juddi.query.FetchBindingTemplatesQuery;
-import org.apache.juddi.query.FetchBusinessEntitiesQuery;
-import org.apache.juddi.query.FetchBusinessServicesQuery;
-import org.apache.juddi.query.FetchTModelsQuery;
-import org.apache.juddi.query.FindBindingByCategoryGroupQuery;
-import org.apache.juddi.query.FindBindingByCategoryQuery;
-import org.apache.juddi.query.FindBindingByTModelKeyQuery;
-import org.apache.juddi.query.FindBusinessByCategoryGroupQuery;
-import org.apache.juddi.query.FindBusinessByCategoryQuery;
-import org.apache.juddi.query.FindBusinessByCombinedCategoryQuery;
-import org.apache.juddi.query.FindBusinessByDiscoveryURLQuery;
-import org.apache.juddi.query.FindBusinessByIdentifierQuery;
-import org.apache.juddi.query.FindBusinessByNameQuery;
-import org.apache.juddi.query.FindBusinessByTModelKeyQuery;
-import org.apache.juddi.query.FindServiceByCategoryGroupQuery;
-import org.apache.juddi.query.FindServiceByCategoryQuery;
-import org.apache.juddi.query.FindServiceByCombinedCategoryQuery;
-import org.apache.juddi.query.FindServiceByNameQuery;
-import org.apache.juddi.query.FindServiceByTModelKeyQuery;
-import org.apache.juddi.query.FindTModelByCategoryGroupQuery;
-import org.apache.juddi.query.FindTModelByCategoryQuery;
-import org.apache.juddi.query.FindTModelByIdentifierQuery;
-import org.apache.juddi.query.FindTModelByNameQuery;
+import org.apache.juddi.query.*;
 import org.apache.juddi.query.util.FindQualifiers;
+import org.apache.juddi.utils.EntityManagerUtils;
 import org.apache.juddi.v3.error.ErrorMessage;
 import org.apache.juddi.v3.error.InvalidKeyPassedException;
-import org.uddi.api_v3.BindingDetail;
-import org.uddi.api_v3.BusinessList;
-import org.uddi.api_v3.Direction;
-import org.uddi.api_v3.FindBinding;
-import org.uddi.api_v3.FindBusiness;
-import org.uddi.api_v3.FindRelatedBusinesses;
-import org.uddi.api_v3.FindService;
-import org.uddi.api_v3.FindTModel;
-import org.uddi.api_v3.ListDescription;
-import org.uddi.api_v3.Name;
-import org.uddi.api_v3.RelatedBusinessesList;
-import org.uddi.api_v3.ServiceList;
-import org.uddi.api_v3.TModelBag;
-import org.uddi.api_v3.TModelList;
+import org.uddi.api_v3.*;
 import org.uddi.v3_service.DispositionReportFaultMessage;
+
+import javax.persistence.EntityManager;
+import javax.xml.ws.Holder;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**Co
  * Used to factor out inquiry functionality as it is used in more than one spot.
@@ -201,7 +164,12 @@ public class InquiryHelper {
 		
 		keysFound = FindBusinessByTModelKeyQuery.select(em, findQualifiers, body.getTModelBag(), keysFound);
 		keysFound = FindBusinessByIdentifierQuery.select(em, findQualifiers, body.getIdentifierBag(), keysFound);
-		keysFound = FindBusinessByDiscoveryURLQuery.select(em, findQualifiers, body.getDiscoveryURLs(), keysFound);
+		if (!EntityManagerUtils.isOracleDatabase(em)) {
+			keysFound = FindBusinessByDiscoveryURLQuery.select(em, findQualifiers, body.getDiscoveryURLs(), keysFound);
+		} else {
+			if(body.getDiscoveryURLs() != null && body.getDiscoveryURLs().getDiscoveryURL() != null && body.getDiscoveryURLs().getDiscoveryURL().size() >0)
+			logger.warn("Parameter discover urls from the search was ignored because the underlying database does not support search on CLOB.");
+		}
         if (findQualifiers.isCombineCategoryBags()) {
             keysFound = FindBusinessByCombinedCategoryQuery.select(em, findQualifiers, body.getCategoryBag(), keysFound);
         } else {

@@ -17,15 +17,15 @@
 
 package org.apache.juddi.query;
 
-import java.util.List;
-import javax.persistence.EntityManager;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.juddi.query.util.DynamicQuery;
 import org.apache.juddi.query.util.FindQualifiers;
-import org.uddi.api_v3.DiscoveryURLs;
 import org.uddi.api_v3.DiscoveryURL;
+import org.uddi.api_v3.DiscoveryURLs;
+
+import javax.persistence.EntityManager;
+import java.util.List;
 
 /**
  * 
@@ -82,7 +82,7 @@ public class FindBusinessByDiscoveryURLQuery extends BusinessEntityQuery {
 	public static void appendConditions(DynamicQuery qry, FindQualifiers fq, List<DiscoveryURL> discURLs) {
 		
 		// Append the necessary tables (one will always be added connecting the entity to its discovery url table).
-		appendJoinTables(qry, fq, discURLs);
+		appendJoinTables(qry, discURLs);
 		qry.AND().pad().openParen().pad();
 
 		int count = 0;
@@ -110,7 +110,7 @@ public class FindBusinessByDiscoveryURLQuery extends BusinessEntityQuery {
 	/*
 	 * Appends the necessary join table for the child entity 
 	 */
-	public static void appendJoinTables(DynamicQuery qry, FindQualifiers fq, List<DiscoveryURL> discURLs) {
+	public static void appendJoinTables(DynamicQuery qry, List<DiscoveryURL> discURLs) {
 		qry.comma().pad().append(ENTITY_NAME_CHILD + " " + entityAliasChild).pad();
 		qry.WHERE().pad().openParen().pad();
 		qry.append(ENTITY_ALIAS + "." + KEY_NAME + " = " + entityAliasChild + "." + ENTITY_FIELD + "." + KEY_NAME + " ");

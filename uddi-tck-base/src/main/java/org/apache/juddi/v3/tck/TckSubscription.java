@@ -14,34 +14,21 @@
  */
 package org.apache.juddi.v3.tck;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.xml.ws.Holder;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.juddi.jaxb.EntityCreator;
 import org.junit.Assert;
-import org.uddi.api_v3.BusinessDetail;
-import org.uddi.api_v3.BusinessEntity;
-import org.uddi.api_v3.BusinessService;
-import org.uddi.api_v3.ServiceInfo;
-import org.uddi.api_v3.ServiceInfos;
-import org.uddi.api_v3.TModelDetail;
-import org.uddi.api_v3.TModelList;
-import org.uddi.sub_v3.DeleteSubscription;
-import org.uddi.sub_v3.GetSubscriptionResults;
-import org.uddi.sub_v3.KeyBag;
-import org.uddi.sub_v3.Subscription;
-import org.uddi.sub_v3.SubscriptionResultsList;
-import org.uddi.v3_service.UDDISubscriptionPortType;
-import static junit.framework.Assert.assertEquals;
-import org.uddi.api_v3.CategoryBag;
-import org.uddi.api_v3.FindTModel;
-import org.uddi.api_v3.KeyedReference;
+import org.uddi.api_v3.*;
+import org.uddi.sub_v3.*;
 import org.uddi.v3_service.UDDIInquiryPortType;
 import org.uddi.v3_service.UDDISecurityPortType;
+import org.uddi.v3_service.UDDISubscriptionPortType;
+
+import javax.xml.ws.Holder;
+import java.util.ArrayList;
+import java.util.List;
+
+import static junit.framework.Assert.assertEquals;
 
 /**
  * @author <a href="mailto:jfaath@apache.org">Jeff Faath</a>
@@ -352,8 +339,7 @@ public class TckSubscription
 			subscription.deleteSubscription(ds);
 		}
 		catch(Exception e) {
-			logger.error(e.getMessage(), e);
-			Assert.fail("No exception should be thrown.");
+			throw new RuntimeException(e);
 		}
 	}
 		

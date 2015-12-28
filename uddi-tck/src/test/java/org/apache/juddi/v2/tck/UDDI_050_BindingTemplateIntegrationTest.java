@@ -94,8 +94,7 @@ public class UDDI_050_BindingTemplateIntegrationTest {
                         tckTModel.saveUDDIPublisherTmodel(authInfoUDDI);
                         tckTModel.saveTModels(authInfoUDDI, TckTModel.TMODELS_XML);
                 } catch (Exception e) {
-                        logger.error(e.getMessage(), e);
-                        Assert.fail("Could not obtain authInfo token.");
+                        throw new RuntimeException("Could not get authentication token", e);
                 }
         }
 

@@ -14,19 +14,19 @@
  */
 package org.apache.juddi.v2.tck;
 
-import javax.xml.ws.BindingProvider;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.juddi.v3.client.config.UDDIClient;
 import org.apache.juddi.v3.client.transport.JAXWSv2TranslationTransport;
-import org.apache.juddi.v3.client.transport.Transport;
 import org.junit.AfterClass;
-import org.junit.Assert;
 import org.junit.Assume;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.uddi.v2_service.*;
+import org.uddi.v2_service.Inquire;
+import org.uddi.v2_service.Publish;
+
+import javax.xml.ws.BindingProvider;
 
 /**
  * @author <a href="mailto:jfaath@apache.org">Jeff Faath</a>
@@ -108,8 +108,7 @@ public class UDDI_030_BusinessEntityIntegrationTest {
 
 
                 } catch (Exception e) {
-                        logger.error(e.getMessage(), e);
-                        Assert.fail("Could not obtain authInfo token.");
+                        throw new RuntimeException("Could not get authentication token", e);
                 }
         }
 

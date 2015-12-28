@@ -15,154 +15,154 @@
  */
 package org.apache.juddi.v3.tck;
 
-import java.util.Iterator;
-import java.util.Random;
-import javax.xml.ws.Endpoint;
 import org.apache.commons.configuration.ConfigurationException;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 
+import javax.xml.ws.Endpoint;
+import java.util.Iterator;
+import java.util.Random;
+
 /**
- *
  * @author Alex O'Ree
  */
 public class UDDI_090_HttpMavenIntegrationTest extends UDDI_090_SubscriptionListenerIntegrationBase {
 
-        private static Endpoint endPoint;
-        private static String hostname;
-        private static int port = 0;
+    private static Endpoint endPoint;
+    private static String hostname;
+    private static int port = 0;
 
-        @AfterClass
-        public static void stop() throws ConfigurationException {
-                if (!TckPublisher.isEnabled()) {
-                        return;
-                }
-                stopManager();
-                endPoint.stop();
-                endPoint = null;
-
+    @AfterClass
+    public static void stop() throws ConfigurationException {
+        if (!TckPublisher.isEnabled()) {
+            return;
         }
+        stopManager();
+        endPoint.stop();
+        endPoint = null;
 
-        @BeforeClass
-        public static void startup() throws Exception {
+    }
 
-                if (!TckPublisher.isEnabled()) {
-                        return;
-                }
-                startManager();
-                hostname = "localhost";
-                //bring up the TCK SubscriptionListener
-                port = 9600;
-                String httpEndpoint = "http://" + hostname + ":" + port + "/tcksubscriptionlistener";
-                System.out.println("Bringing up SubscriptionListener endpoint at " + httpEndpoint);
-                endPoint = Endpoint.publish(httpEndpoint, new UDDISubscriptionListenerImpl());
-                int count = 0;
-                while (!endPoint.isPublished()) {
-                        port = 9600 + new Random().nextInt(99);
-                        httpEndpoint = "http://" + hostname + ":" + port + "/tcksubscriptionlistener";
-                        System.out.println("Bringing up SubscriptionListener endpoint at " + httpEndpoint);
-                        endPoint = Endpoint.publish(httpEndpoint, new UDDISubscriptionListenerImpl());
-                        count++;
-                        if (count > 10) {
-                                Assert.fail("unable to bring up endpoint");
-                        }
-                }
+    @BeforeClass
+    public static void startup() throws Exception {
+
+        if (!TckPublisher.isEnabled()) {
+            return;
         }
-
-        @Override
-        public boolean verifyDelivery(String findMe) {
-                for (int i = 0; i < TckPublisher.getSubscriptionTimeout(); i++) {
-                        try {
-                                Thread.sleep(1000);
-                        } catch (InterruptedException ex) {
-                        }
-                        System.out.println(".");
-                        //if (UDDISubscriptionListenerImpl.notificationCount > 0) {                        }
-                }
-                logger.info("RX " + UDDISubscriptionListenerImpl.notificationCount + " notifications");
-                Iterator<String> it = UDDISubscriptionListenerImpl.notifcationMap.values().iterator();
-                boolean found = false;
-
-                while (it.hasNext()) {
-                        String test = it.next();
-                        if (TckCommon.isDebug()) {
-                                logger.info("Notification: " + test);
-                        }
-                        if (test.toLowerCase().contains(findMe.toLowerCase())) {
-                                found = true;
-                        }
-                }
-                if (!found) {
-                        logger.error("_________________________________________________the test failed!!!");
-                        it = UDDISubscriptionListenerImpl.notifcationMap.values().iterator();
-                        Thread.dumpStack();
-                        while (it.hasNext()) {
-                                logger.info("Notification: " + it.next());
-                        }
-                }
-                return found;
+        startManager();
+        hostname = "localhost";
+        //bring up the TCK SubscriptionListener
+        port = 9600;
+        String httpEndpoint = "http://" + hostname + ":" + port + "/tcksubscriptionlistener";
+        System.out.println("Bringing up SubscriptionListener endpoint at " + httpEndpoint);
+        endPoint = Endpoint.publish(httpEndpoint, new UDDISubscriptionListenerImpl());
+        int count = 0;
+        while (!endPoint.isPublished()) {
+            port = 9600 + new Random().nextInt(99);
+            httpEndpoint = "http://" + hostname + ":" + port + "/tcksubscriptionlistener";
+            System.out.println("Bringing up SubscriptionListener endpoint at " + httpEndpoint);
+            endPoint = Endpoint.publish(httpEndpoint, new UDDISubscriptionListenerImpl());
+            count++;
+            if (count > 10) {
+                Assert.fail("unable to bring up endpoint");
+            }
         }
+    }
 
-        @Override
-        public void reset() {
-                UDDISubscriptionListenerImpl.notifcationMap.clear();
-                UDDISubscriptionListenerImpl.notificationCount = 0;
+    @Override
+    public boolean verifyDelivery(String findMe) {
+        for (int i = 0; i < TckPublisher.getSubscriptionTimeout(); i++) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException ex) {
+            }
+            System.out.println(".");
+            //if (UDDISubscriptionListenerImpl.notificationCount > 0) {                        }
         }
+        logger.info("RX " + UDDISubscriptionListenerImpl.notificationCount + " notifications");
+        Iterator<String> it = UDDISubscriptionListenerImpl.notifcationMap.values().iterator();
+        boolean found = false;
 
-        @Override
-        public String getXMLLocationOfServiceForDelivery() {
-                return TckSubscriptionListener.LISTENER_HTTP_SERVICE_XML;
+        while (it.hasNext()) {
+            String test = it.next();
+            if (TckCommon.isDebug()) {
+                logger.info("Notification: " + test);
+            }
+            if (test.toLowerCase().contains(findMe.toLowerCase())) {
+                found = true;
+            }
         }
+        if (!found) {
+            logger.error("_________________________________________________the test failed!!!");
+            it = UDDISubscriptionListenerImpl.notifcationMap.values().iterator();
+            Thread.dumpStack();
+            while (it.hasNext()) {
+                logger.info("Notification: " + it.next());
+            }
+        }
+        return found;
+    }
 
-        @Override
-        public String getTransport() {
-                return "HTTP_MAVEN";
-        }
+    @Override
+    public void reset() {
+        UDDISubscriptionListenerImpl.notifcationMap.clear();
+        UDDISubscriptionListenerImpl.notificationCount = 0;
+    }
 
-        @Override
-        public int getPort() {
-                return port;
-        }
+    @Override
+    public String getXMLLocationOfServiceForDelivery() {
+        return TckSubscriptionListener.LISTENER_HTTP_SERVICE_XML;
+    }
 
-        @Override
-        public String getHostame() {
-                return hostname;
-        }
+    @Override
+    public String getTransport() {
+        return "HTTP_MAVEN";
+    }
 
-        @Override
-        public String getSubscription1XML() {
-                return TckSubscriptionListener.SUBSCRIPTION_XML;
-        }
+    @Override
+    public int getPort() {
+        return port;
+    }
 
-        @Override
-        public String getSubscription2XML() {
-                return TckSubscriptionListener.SUBSCRIPTION2_XML;
-        }
+    @Override
+    public String getHostame() {
+        return hostname;
+    }
 
-        @Override
-        public String getSubscription3XML() {
-                return TckSubscriptionListener.SUBSCRIPTION3_XML;
-        }
+    @Override
+    public String getSubscription1XML() {
+        return TckSubscriptionListener.SUBSCRIPTION_XML;
+    }
 
-        @Override
-        public String getSubscriptionKey1() {
-                return TckSubscriptionListener.SUBSCRIPTION_KEY;
-        }
+    @Override
+    public String getSubscription2XML() {
+        return TckSubscriptionListener.SUBSCRIPTION2_XML;
+    }
 
-        @Override
-        public String getSubscriptionKey2() {
-                return TckSubscriptionListener.SUBSCRIPTION_KEY;
-        }
+    @Override
+    public String getSubscription3XML() {
+        return TckSubscriptionListener.SUBSCRIPTION3_XML;
+    }
 
-        @Override
-        public String getSubscriptionKey3() {
-                return TckSubscriptionListener.SUBSCRIPTION_KEY;
-        }
+    @Override
+    public String getSubscriptionKey1() {
+        return TckSubscriptionListener.SUBSCRIPTION_KEY;
+    }
 
-        @Override
-        public boolean IsEnabled() {
-                return true;
-        }
+    @Override
+    public String getSubscriptionKey2() {
+        return TckSubscriptionListener.SUBSCRIPTION_KEY;
+    }
+
+    @Override
+    public String getSubscriptionKey3() {
+        return TckSubscriptionListener.SUBSCRIPTION_KEY;
+    }
+
+    @Override
+    public boolean IsEnabled() {
+        return true;
+    }
 
 }

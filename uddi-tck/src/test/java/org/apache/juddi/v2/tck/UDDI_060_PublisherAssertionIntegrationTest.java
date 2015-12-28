@@ -110,8 +110,7 @@ public class UDDI_060_PublisherAssertionIntegrationTest {
                         tckTModelJoe.saveTmodels(authInfoJoe);
 
                 } catch (Exception e) {
-                        logger.error(e.getMessage(), e);
-                        Assert.fail("Could not obtain authInfo token.");
+                        throw new RuntimeException("Could not get authentication token", e);
                 }
         }
 

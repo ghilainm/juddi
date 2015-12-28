@@ -76,8 +76,7 @@ public class UDDI_160_RESTIntergrationTest {
                         Transport transport = manager.getTransport("uddiv3");
                         inquiry = transport.getUDDIInquiryService();
                 } catch (Exception e) {
-                        logger.error(e.getMessage(), e);
-                        Assert.fail("Could not obtain authInfo token.");
+                        throw new RuntimeException("Could not get authentication token", e);
                 }
                 JUDDI_300_MultiNodeIntegrationTest.testSetupReplicationConfig();
         }

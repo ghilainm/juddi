@@ -14,36 +14,13 @@
  */
 package org.apache.juddi.v3.tck;
 
-import java.util.GregorianCalendar;
-import java.util.UUID;
-import javax.xml.datatype.DatatypeFactory;
-import javax.xml.datatype.XMLGregorianCalendar;
-
-import javax.xml.soap.SOAPFault;
-import javax.xml.ws.BindingProvider;
-import javax.xml.ws.Holder;
-
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.juddi.v3.client.config.UDDIClient;
 import org.apache.juddi.v3.client.transport.Transport;
-import org.junit.AfterClass;
-import org.junit.Assert;
-import org.junit.Assume;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.uddi.api_v3.AccessPoint;
-import org.uddi.api_v3.BindingTemplate;
-import org.uddi.api_v3.BindingTemplates;
-import org.uddi.api_v3.BusinessDetail;
-import org.uddi.api_v3.BusinessEntity;
-import org.uddi.api_v3.BusinessService;
-import org.uddi.api_v3.BusinessServices;
-import org.uddi.api_v3.GetOperationalInfo;
-import org.uddi.api_v3.Name;
-import org.uddi.api_v3.OperationalInfos;
-import org.uddi.api_v3.SaveBusiness;
+import org.junit.*;
+import org.uddi.api_v3.*;
 import org.uddi.custody_v3.KeyBag;
 import org.uddi.custody_v3.TransferEntities;
 import org.uddi.custody_v3.TransferToken;
@@ -51,6 +28,14 @@ import org.uddi.v3_service.UDDICustodyTransferPortType;
 import org.uddi.v3_service.UDDIInquiryPortType;
 import org.uddi.v3_service.UDDIPublicationPortType;
 import org.uddi.v3_service.UDDISecurityPortType;
+
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
+import javax.xml.soap.SOAPFault;
+import javax.xml.ws.BindingProvider;
+import javax.xml.ws.Holder;
+import java.util.GregorianCalendar;
+import java.util.UUID;
 
 /**
  * This test class provides test cases of items discovered or reported through
@@ -138,8 +123,7 @@ public class UDDI_150_CustodyTransferIntegrationTest {
 
                         tckTModelJoe.saveJoePublisherTmodel(authInfoJoe);
                 } catch (Exception e) {
-                        logger.error(e.getMessage(), e);
-                        Assert.fail("Could not obtain authInfo token.");
+                        throw new RuntimeException("Could not get authentication token", e);
                 }
                 JUDDI_300_MultiNodeIntegrationTest.testSetupReplicationConfig();
         }

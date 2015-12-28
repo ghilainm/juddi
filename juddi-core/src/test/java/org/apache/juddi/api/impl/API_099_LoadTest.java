@@ -70,8 +70,7 @@ public class API_099_LoadTest {
                         api010.saveJoePublisher();
                         authInfoJoe = TckSecurity.getAuthToken(new UDDISecurityImpl(), TckPublisher.getJoePublisherId(), TckPublisher.getJoePassword());
                 } catch (RemoteException e) {
-                        logger.error(e.getMessage(), e);
-                        Assert.fail("Could not obtain authInfo token.");
+                        throw new RuntimeException("Could not get authentication token", e);
                 }
 
         }

@@ -27,7 +27,7 @@ under the License.
     <packaging>pom</packaging>
     <groupId>org.apache.juddi</groupId>
     <artifactId>juddi-parent</artifactId>
-    <version>3.3.3-SNAPSHOT</version>
+    <version>3.3.3-TATAFng</version>
     <name>jUDDI_v3 Parent</name>
     <description>jUDDI (pronounced "Judy") is an open source Java
         implementation of the Universal Description, Discovery, and
@@ -252,6 +252,11 @@ under the License.
                         </nonFilteredFileExtensions>
                     </configuration>
                 </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.19</version>
+                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
@@ -343,17 +348,28 @@ under the License.
             <url>scpexe://people.apache.org/www/juddi.apache.org/</url>
         </site>
     </distributionManagement>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.11</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-logging</groupId>
+                <artifactId>commons-logging-api</artifactId>
+                <version>1.1</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.11</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging-api</artifactId>
-            <version>1.1</version>
         </dependency>
     </dependencies>
     <repositories>
@@ -416,6 +432,18 @@ under the License.
                 <module>docs</module>
                 <module>juddi-dist</module>
                 <module>uddi-client-dist</module>
+            </modules>
+        </profile>
+
+        <!-- Adding those module for weblogic-toplink profile only -->
+        <profile>
+            <id>weblogic-toplink</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <modules>
+                <module>uddi-tck</module>
+                <module>uddi-tck-weblogic-oracle</module>
             </modules>
         </profile>
 

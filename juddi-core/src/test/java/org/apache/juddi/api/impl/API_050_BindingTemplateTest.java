@@ -71,8 +71,7 @@ public class API_050_BindingTemplateTest {
                         tckTModel.saveUDDIPublisherTmodel(authInfoUDDI);
                         tckTModel.saveTModels(authInfoUDDI, TckTModel.TMODELS_XML);
                 } catch (RemoteException e) {
-                        logger.error(e.getMessage(), e);
-                        Assert.fail("Could not obtain authInfo token.");
+                        throw new RuntimeException("Could not get authentication token", e);
                 }
         }
 

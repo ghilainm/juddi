@@ -14,21 +14,17 @@
  */
 package org.apache.juddi.v3.tck;
 
-import static junit.framework.Assert.assertEquals;
-
-import java.util.List;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.juddi.jaxb.EntityCreator;
 import org.junit.Assert;
-import org.uddi.api_v3.BindingDetail;
-import org.uddi.api_v3.BindingTemplate;
-import org.uddi.api_v3.DeleteBinding;
-import org.uddi.api_v3.GetBindingDetail;
-import org.uddi.api_v3.SaveBinding;
+import org.uddi.api_v3.*;
 import org.uddi.v3_service.UDDIInquiryPortType;
 import org.uddi.v3_service.UDDIPublicationPortType;
+
+import java.util.List;
+
+import static junit.framework.Assert.assertEquals;
 /**
  * @author <a href="mailto:kstam@apache.org">Kurt T Stam</a>
  * @author <a href="mailto:jfaath@apache.org">Jeff Faath</a>
@@ -97,8 +93,7 @@ public class TckBindingTemplate
 			publication.deleteBinding(db);
 		}
 		catch(Exception e) {
-			logger.error(e.getMessage(), e);
-			Assert.fail("No exception should be thrown.");
+			throw new RuntimeException(e);
 		}
 		
 	}

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<uddi xmlns="urn:juddi-apache-org:v3_client" xsi:schemaLocation="classpath:/xsd/uddi-client.xsd">
+    <reloadDelay>5000</reloadDelay>
+    <client name="test-client">
+        <nodes>
+            <!-- this is only used when uddiv3.enable=true in tck.properties -->
+            <!-- Don't know what it is used for but it seems required by the tests -->
+            <node>
+                <name>default</name>
+            </node>
+            <!-- this is only used when uddiv3.enable=true in tck.properties -->
+            <node isHomeJUDDI="true">
+                <name>uddiv3</name>
+                <description>Main jUDDI node</description>
+                <proxyTransport>org.apache.juddi.v3.client.transport.JAXWSTransport</proxyTransport>
+                <custodyTransferUrl>${juddi.http.url}/UDDICustodyTransferService</custodyTransferUrl>
+                <inquiryUrl>${juddi.http.url}/UDDIInquiryService</inquiryUrl>
+                <inquiryRESTUrl>${juddi.http.url}/inquiryRest/XML/getDetail</inquiryRESTUrl>
+                <publishUrl>${juddi.http.url}/UDDIPublicationService</publishUrl>
+                <securityUrl>${juddi.http.url}/UDDISecurityService</securityUrl>
+                <subscriptionUrl>${juddi.http.url}/UDDISubscriptionService</subscriptionUrl>
+                <subscriptionListenerUrl>${juddi.http.url}/UDDISubscriptionListenerService</subscriptionListenerUrl>
+                <juddiApiUrl>${juddi.http.url}/JUDDIApiService</juddiApiUrl>
+                <replicationUrl>${juddi.http.url}/UDDI_Replication_PortType</replicationUrl>
+                <juddigui>${juddi.gui.http.url}</juddigui>
+            </node>
+            <node>
+                <name>uddiv3-2</name>
+                <description>Second factice UDDI node. It has the same physical node as the first one.</description>
+                <proxyTransport>org.apache.juddi.v3.client.transport.JAXWSTransport</proxyTransport>
+                <custodyTransferUrl>${juddi.http.url}/UDDICustodyTransferService</custodyTransferUrl>
+                <inquiryUrl>${juddi.http.url}/UDDIInquiryService</inquiryUrl>
+                <inquiryRESTUrl>${juddi.http.url}/inquiryRest/XML/getDetail</inquiryRESTUrl>
+                <publishUrl>${juddi.http.url}/UDDIPublicationService</publishUrl>
+                <securityUrl>${juddi.http.url}/UDDISecurityService</securityUrl>
+                <subscriptionUrl>${juddi.http.url}/UDDISubscriptionService</subscriptionUrl>
+                <subscriptionListenerUrl>${juddi.http.url}/UDDISubscriptionListenerService</subscriptionListenerUrl>
+                <juddiApiUrl>${juddi.http.url}/JUDDIApiService</juddiApiUrl>
+                <replicationUrl>${juddi.http.url}/UDDI_Replication_PortType</replicationUrl>
+                <juddigui>${juddi.gui.http.url}</juddigui>
+            </node>
+            <!-- this is only used when uddiv2.enable=true in tck.properties -->
+            <node>
+                <name>uddiv2</name>
+                <description>jUDDI node in other Department</description>
+                <properties>
+                    <property name="serverName" value="localhost" />
+                    <property name="serverPort" value="8080" />
+                </properties>
+                <proxyTransport>org.apache.juddi.v3.client.transport.JAXWSv2TranslationTransport</proxyTransport>
+                <inquiryUrl>${juddi.http.url}/Inquire</inquiryUrl>
+                <publishUrl>${juddi.http.url}/Publish</publishUrl>
+            </node>
+        </nodes>
+
+        <clerks registerOnStartup="false">
+            <!-- not used -->
+            <clerk name="default" node="default" publisher="root" password="root" isPasswordEncrypted="false"
+                   cryptoProvider=""/>
+
+            <!-- this is used for the subscription callback tests -->
+            <clerk name="uddiv3" node="uddiv3" publisher="root" password="root" isPasswordEncrypted="false"
+                   cryptoProvider=""/>
+        </clerks>
+        <signature>
+            <!-- signing stuff -->
+            <signingKeyStorePath>keystore.jks</signingKeyStorePath>
+            <signingKeyStoreType>JKS</signingKeyStoreType>
+            <signingKeyStoreFilePassword
+                    isPasswordEncrypted="false"
+                    cryptoProvider="org.apache.juddi.v3.client.crypto.AES128Cryptor">password
+            </signingKeyStoreFilePassword>
+            <signingKeyPassword
+                    isPasswordEncrypted="false"
+                    cryptoProvider="org.apache.juddi.v3.client.crypto.AES128Cryptor">password
+            </signingKeyPassword>
+            <signingKeyAlias>my special key</signingKeyAlias>
+
+            <canonicalizationMethod>http://www.w3.org/2001/10/xml-exc-c14n#</canonicalizationMethod>
+            <signatureMethod>http://www.w3.org/2000/09/xmldsig#rsa-sha1</signatureMethod>
+            <XML_DIGSIG_NS>http://www.w3.org/2000/09/xmldsig#</XML_DIGSIG_NS>
+
+            <!-- validation stuff
+            Used whenever someone views an entity that is signed and validation is required	-->
+            <!-- if this doesn't exist or is incorrect, the client will atempt to load the standard jdk trust store-->
+            <trustStorePath>truststore.jks</trustStorePath>
+            <trustStoreType>JKS</trustStoreType>
+            <trustStorePassword
+                    isPasswordEncrypted="false"
+                    cryptoProvider="org.apache.juddi.v3.client.crypto.AES128Cryptor">password
+            </trustStorePassword>
+
+            <checkTimestamps>true</checkTimestamps>
+            <checkTrust>true</checkTrust>
+            <checkRevocationCRL>true</checkRevocationCRL>
+            <keyInfoInclusionSubjectDN>false</keyInfoInclusionSubjectDN>
+            <keyInfoInclusionSerial>false</keyInfoInclusionSerial>
+            <keyInfoInclusionBase64PublicKey>true</keyInfoInclusionBase64PublicKey>
+            <digestMethod>http://www.w3.org/2000/09/xmldsig#sha1</digestMethod>
+        </signature>
+        <subscriptionCallbacks>
+            <keyDomain>uddi:somebusiness</keyDomain>
+            <listenUrl>http://${local.hostname}:4555/callback</listenUrl>
+            <autoRegisterBindingTemplate>true</autoRegisterBindingTemplate>
+            <autoRegisterBusinessServiceKey>uddi:somebusiness:someservicekey</autoRegisterBusinessServiceKey>
+            <signatureBehavior>DoNothing</signatureBehavior>
+            <!--valid values are AbortIfSigned,Sign,DoNothing,SignOnlyIfParentIsntSigned, default is DoNothing-->
+        </subscriptionCallbacks>
+        <XtoWsdl>
+            <IgnoreSSLErrors>false</IgnoreSSLErrors>
+        </XtoWsdl>
+    </client>
+</uddi>

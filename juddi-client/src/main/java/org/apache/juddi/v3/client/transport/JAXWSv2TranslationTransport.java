@@ -16,11 +16,6 @@
  */
 package org.apache.juddi.v3.client.transport;
 
-import java.util.Map;
-import java.util.Properties;
-
-import javax.xml.ws.BindingProvider;
-
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -36,6 +31,10 @@ import org.uddi.v2_service.Publish;
 import org.uddi.v3_service.UDDIInquiryPortType;
 import org.uddi.v3_service.UDDIPublicationPortType;
 import org.uddi.v3_service.UDDISecurityPortType;
+
+import javax.xml.ws.BindingProvider;
+import java.util.Map;
+import java.util.Properties;
 
 /**
  * JAXWS Transport for UDDIv2 bindings. Use this class for accessing UDDIv2
@@ -68,10 +67,12 @@ public class JAXWSv2TranslationTransport extends JAXWSTransport {
                 this.nodeName = nodeName;
         }
 
+        @Override
         public String getNodeName() {
                 return nodeName;
         }
 
+        @Override
         public void setNodeName(String nodeName) {
                 this.nodeName = nodeName;
         }
@@ -130,7 +131,7 @@ public class JAXWSv2TranslationTransport extends JAXWSTransport {
                                 UDDIClient client = UDDIClientContainer.getUDDIClient(clientName);
                                 endpointURL = client.getClientConfig().getUDDINode(nodeName).getInquiryUrl();
                         }
-                        Map<String, Object> requestContext = ((BindingProvider) inquiryv2).getRequestContext();
+                        Map<String, Object> requestContext = inquiryv2.getRequestContext();
                         requestContext.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, endpointURL);
                         setCredentials(requestContext);
                 } catch (Exception e) {
@@ -156,7 +157,7 @@ public class JAXWSv2TranslationTransport extends JAXWSTransport {
                          if (endpointURL.toLowerCase().startsWith("http:")){
                                         logger.warn("You should consider use a secure protocol (https) when sending your password!");
                                 }
-                        Map<String, Object> requestContext = ((BindingProvider) securityv2).getRequestContext();
+                        Map<String, Object> requestContext = securityv2.getRequestContext();
                         requestContext.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, endpointURL);
                         setCredentials(requestContext);
                 } catch (Exception e) {
@@ -178,7 +179,7 @@ public class JAXWSv2TranslationTransport extends JAXWSTransport {
                                 endpointURL = client.getClientConfig().getUDDINode(nodeName).getPublishUrl();
                         }
 
-                        Map<String, Object> requestContext = ((BindingProvider) publishv2).getRequestContext();
+                        Map<String, Object> requestContext = publishv2.getRequestContext();
                         requestContext.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, endpointURL);
                         setCredentials(requestContext);
                 } catch (Exception e) {
@@ -205,7 +206,7 @@ public class JAXWSv2TranslationTransport extends JAXWSTransport {
                                 UDDIClient client = UDDIClientContainer.getUDDIClient(clientName);
                                 endpointURL = client.getClientConfig().getUDDINode(nodeName).getInquiryUrl();
                         }
-                        Map<String, Object> requestContext = ((BindingProvider) inquiryv2).getRequestContext();
+                        Map<String, Object> requestContext = inquiryv2.getRequestContext();
                         requestContext.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, endpointURL);
                         setCredentials(requestContext);
                 } catch (Exception e) {
@@ -228,7 +229,7 @@ public class JAXWSv2TranslationTransport extends JAXWSTransport {
                                 endpointURL = client.getClientConfig().getUDDINode(nodeName).getPublishUrl();
                         }
 
-                        Map<String, Object> requestContext = ((BindingProvider) publishv2).getRequestContext();
+                        Map<String, Object> requestContext = publishv2.getRequestContext();
                         requestContext.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, endpointURL);
                         setCredentials(requestContext);
                 } catch (Exception e) {

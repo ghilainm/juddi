@@ -14,25 +14,11 @@
  */
 package org.apache.juddi.api.impl;
 
-import static junit.framework.Assert.assertEquals;
-
-import java.rmi.RemoteException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.List;
-import javax.xml.datatype.DatatypeFactory;
-import javax.xml.ws.Holder;
-
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.juddi.Registry;
-import org.apache.juddi.api_v3.DeletePublisher;
-import org.apache.juddi.api_v3.GetPublisherDetail;
-import org.apache.juddi.api_v3.Publisher;
-import org.apache.juddi.api_v3.PublisherDetail;
-import org.apache.juddi.api_v3.SavePublisher;
+import org.apache.juddi.api_v3.*;
 import org.apache.juddi.config.AppConfig;
 import org.apache.juddi.config.Property;
 import org.apache.juddi.jaxb.EntityCreator;
@@ -54,6 +40,16 @@ import org.uddi.sub_v3.Subscription;
 import org.uddi.sub_v3.SubscriptionFilter;
 import org.uddi.v3_service.DispositionReportFaultMessage;
 import org.uddi.v3_service.UDDISecurityPortType;
+
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.ws.Holder;
+import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.List;
+
+import static junit.framework.Assert.assertEquals;
 
 /**
  * This test is jUDDI specific, as the publisher methods are an extension to the
@@ -201,8 +197,7 @@ public class API_010_PublisherTest {
                         }
 
                 } catch (Exception e) {
-                        logger.error(e.getMessage(), e);
-                        Assert.fail("No exception should be thrown");
+                        throw new RuntimeException(e);
                 }
         }
 
@@ -232,8 +227,7 @@ public class API_010_PublisherTest {
                         }
 
                 } catch (Exception e) {
-                        logger.error(e.getMessage(), e);
-                        Assert.fail("No exception should be thrown");
+                        throw new RuntimeException(e);
                 }
         }
 

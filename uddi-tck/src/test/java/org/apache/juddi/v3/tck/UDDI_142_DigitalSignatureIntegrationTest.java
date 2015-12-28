@@ -127,8 +127,7 @@ public class UDDI_142_DigitalSignatureIntegrationTest {
                         tckBusinessSam = new TckBusiness(publicationSam, inquiryJoeSam);
 
                 } catch (Exception e) {
-                        logger.error(e.getMessage(), e);
-                        Assert.fail("Could not obtain authInfo token.");
+                        throw new RuntimeException("Could not get authentication token", e);
                 }
                 JUDDI_300_MultiNodeIntegrationTest.testSetupReplicationConfig();
         }

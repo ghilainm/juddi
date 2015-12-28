@@ -14,27 +14,17 @@
  */
 package org.apache.juddi.v3.tck;
 
-import javax.xml.ws.BindingProvider;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.juddi.api_v3.Clerk;
-import org.apache.juddi.api_v3.ClientSubscriptionInfo;
-import org.apache.juddi.api_v3.ClientSubscriptionInfoDetail;
-import org.apache.juddi.api_v3.DeleteClientSubscriptionInfo;
-import org.apache.juddi.api_v3.Node;
-import org.apache.juddi.api_v3.SaveClerk;
-import org.apache.juddi.api_v3.SaveClientSubscriptionInfo;
-import org.apache.juddi.api_v3.SaveNode;
+import org.apache.juddi.api_v3.*;
 import org.apache.juddi.v3.client.config.UDDIClient;
 import org.apache.juddi.v3.client.transport.Transport;
 import org.apache.juddi.v3_service.JUDDIApiPortType;
-import org.junit.AfterClass;
-import org.junit.Assert;
-import org.junit.Assume;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
 import org.uddi.v3_service.UDDISecurityPortType;
+
+import javax.xml.ws.BindingProvider;
 
 /**
  * jUDDI specific tests
@@ -44,111 +34,108 @@ import org.uddi.v3_service.UDDISecurityPortType;
  */
 public class JUDDI_100_ClientSubscriptionInfoIntegrationTest {
 
-        private static UDDISecurityPortType security = null;
-        private static JUDDIApiPortType publisher = null;
-        private static Log logger = LogFactory.getLog(JUDDI_100_ClientSubscriptionInfoIntegrationTest.class);
-        private static String authInfo = null;
-        private static UDDIClient manager;
+    private static UDDISecurityPortType security = null;
+    private static JUDDIApiPortType publisher = null;
+    private static Log logger = LogFactory.getLog(JUDDI_100_ClientSubscriptionInfoIntegrationTest.class);
+    private static String authInfo = null;
+    private static UDDIClient manager;
 
-        @BeforeClass
-        public static void startRegistry() throws ConfigurationException {
-                if (!TckPublisher.isEnabled()) return;
-                manager = new UDDIClient();
-                manager.start();
+    @BeforeClass
+    public static void startRegistry() throws ConfigurationException {
+        if (!TckPublisher.isEnabled()) return;
+        manager = new UDDIClient();
+        manager.start();
 
 
-                logger.debug("Getting auth tokens..");
-                try {
-                        Transport transport = manager.getTransport("uddiv3");
+        logger.debug("Getting auth tokens..");
+        try {
+            Transport transport = manager.getTransport("uddiv3");
 
-                        security = transport.getUDDISecurityService();
-                        authInfo = TckSecurity.getAuthToken(security, TckPublisher.getRootPublisherId(), TckPublisher.getRootPassword());
+            security = transport.getUDDISecurityService();
+            authInfo = TckSecurity.getAuthToken(security, TckPublisher.getRootPublisherId(), TckPublisher.getRootPassword());
 
-                        publisher = transport.getJUDDIApiService();
-                        if (!TckPublisher.isUDDIAuthMode()) {
-                                TckSecurity.setCredentials((BindingProvider) publisher, TckPublisher.getRootPublisherId(), TckPublisher.getRootPassword());
-                        }
-                } catch (Exception e) {
-                        logger.error(e.getMessage(), e);
-                        Assert.fail("Could not obtain authInfo token.");
-                }
-                JUDDI_300_MultiNodeIntegrationTest.testSetupReplicationConfig();
+            publisher = transport.getJUDDIApiService();
+            if (!TckPublisher.isUDDIAuthMode()) {
+                TckSecurity.setCredentials((BindingProvider) publisher, TckPublisher.getRootPublisherId(), TckPublisher.getRootPassword());
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Could not get authentication token", e);
         }
+        JUDDI_300_MultiNodeIntegrationTest.testSetupReplicationConfig();
+    }
 
-        @AfterClass
-        public static void stopRegistry() throws ConfigurationException {
-                manager.stop();
+    @AfterClass
+    public static void stopRegistry() throws ConfigurationException {
+        manager.stop();
+    }
+
+    @Test
+    public void addClientSubscriptionInfo() throws Exception {
+        if (!TckPublisher.isEnabled()) return;
+        Assume.assumeTrue(TckPublisher.isJUDDI());
+
+        ClientSubscriptionInfo clientSubscriptionInfo = new ClientSubscriptionInfo();
+
+        Node node = new Node();
+        node.setSecurityUrl("http://localhost:8080/services");
+        node.setCustodyTransferUrl("http://localhost:8080/services");
+        node.setDescription("TEST");
+        node.setInquiryUrl("http://localhost:8080/services");
+        node.setPublishUrl("http://localhost:8080/services");
+        node.setSubscriptionListenerUrl("http://localhost:8080/services");
+        node.setSubscriptionUrl("http://localhost:8080/services");
+        node.setProxyTransport(org.apache.juddi.v3.client.transport.JAXWSTransport.class.getCanonicalName());
+
+        node.setName("addClientSubscriptionInfoNode");
+        node.setClientName("addClientSubscriptionInfoNode");
+
+        Clerk clerk = new Clerk();
+        clerk.setName("addClientSubscriptionInfoClerk");
+        clerk.setPublisher("root");
+        clerk.setNode(node);
+
+        Clerk toClerk = new Clerk();
+        toClerk.setName("addClientSubscriptionInfoClerk2");
+        toClerk.setPublisher("root");
+        toClerk.setNode(node);
+
+        clientSubscriptionInfo.setFromClerk(clerk);
+        clientSubscriptionInfo.setToClerk(toClerk);
+
+        clientSubscriptionInfo.setSubscriptionKey("mykey");
+
+        SaveClientSubscriptionInfo saveClientSubscriptionInfo = new SaveClientSubscriptionInfo();
+        saveClientSubscriptionInfo.setAuthInfo(authInfo);
+        saveClientSubscriptionInfo.getClientSubscriptionInfo().add(clientSubscriptionInfo);
+
+        try {
+            SaveNode sni = new SaveNode();
+            sni.setAuthInfo(authInfo);
+            sni.getNode().add(node);
+            publisher.saveNode(sni);
+
+            saveClerk(clerk);
+            saveClerk(toClerk);
+            ClientSubscriptionInfoDetail detail = publisher.saveClientSubscriptionInfo(saveClientSubscriptionInfo);
+
+            Assert.assertEquals("mykey", detail.getClientSubscriptionInfo().get(0).getSubscriptionKey());
+
+            DeleteClientSubscriptionInfo deleteInfo = new DeleteClientSubscriptionInfo();
+            deleteInfo.setAuthInfo(authInfo);
+            deleteInfo.getSubscriptionKey().add("mykey");
+            publisher.deleteClientSubscriptionInfo(deleteInfo);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
+    }
 
-        @Test
-        public void addClientSubscriptionInfo() throws Exception {
-                if (!TckPublisher.isEnabled()) return;
-             Assume.assumeTrue(TckPublisher.isJUDDI());
 
-                ClientSubscriptionInfo clientSubscriptionInfo = new ClientSubscriptionInfo();
+    private Clerk saveClerk(Clerk clerk) throws Exception {
+        SaveClerk saveClerkInfo = new SaveClerk();
+        saveClerkInfo.setAuthInfo(authInfo);
 
-                Node node = new Node();
-                node.setSecurityUrl("http://localhost:8080/services");
-                node.setCustodyTransferUrl("http://localhost:8080/services");
-                node.setDescription("TEST");
-                node.setInquiryUrl("http://localhost:8080/services");
-                node.setPublishUrl("http://localhost:8080/services");
-                node.setSubscriptionListenerUrl("http://localhost:8080/services");
-                node.setSubscriptionUrl("http://localhost:8080/services");
-                node.setProxyTransport(org.apache.juddi.v3.client.transport.JAXWSTransport.class.getCanonicalName());
-                
-                node.setName("addClientSubscriptionInfoNode");
-                node.setClientName("addClientSubscriptionInfoNode");
-
-                Clerk clerk = new Clerk();
-                clerk.setName("addClientSubscriptionInfoClerk");
-                clerk.setPublisher("root");
-                clerk.setNode(node);
-
-                Clerk toClerk = new Clerk();
-                toClerk.setName("addClientSubscriptionInfoClerk2");
-                toClerk.setPublisher("root");
-                toClerk.setNode(node);
-
-                clientSubscriptionInfo.setFromClerk(clerk);
-                clientSubscriptionInfo.setToClerk(toClerk);
-
-                clientSubscriptionInfo.setSubscriptionKey("mykey");
-
-                SaveClientSubscriptionInfo saveClientSubscriptionInfo = new SaveClientSubscriptionInfo();
-                saveClientSubscriptionInfo.setAuthInfo(authInfo);
-                saveClientSubscriptionInfo.getClientSubscriptionInfo().add(clientSubscriptionInfo);
-
-                try {
-                        SaveNode sni = new SaveNode();
-                        sni.setAuthInfo(authInfo);
-                        sni.getNode().add(node);
-                        publisher.saveNode(sni);
-                        
-                        saveClerk(clerk);
-                        saveClerk(toClerk);
-                        ClientSubscriptionInfoDetail detail = publisher.saveClientSubscriptionInfo(saveClientSubscriptionInfo);
-
-                        Assert.assertEquals("mykey", detail.getClientSubscriptionInfo().get(0).getSubscriptionKey());
-
-                        DeleteClientSubscriptionInfo deleteInfo = new DeleteClientSubscriptionInfo();
-                        deleteInfo.setAuthInfo(authInfo);
-                        deleteInfo.getSubscriptionKey().add("mykey");
-                        publisher.deleteClientSubscriptionInfo(deleteInfo);
-
-                } catch (Exception e) {
-                        logger.error(e.getMessage(), e);
-                        Assert.fail("No exception should be thrown");
-                } 
-        }
-
-        
-
-        private Clerk saveClerk(Clerk clerk) throws Exception {
-                SaveClerk saveClerkInfo = new SaveClerk();
-                saveClerkInfo.setAuthInfo(authInfo);
-
-                saveClerkInfo.getClerk().add(clerk);
-                return publisher.saveClerk(saveClerkInfo).getClerk().get(0);
-        }
+        saveClerkInfo.getClerk().add(clerk);
+        return publisher.saveClerk(saveClerkInfo).getClerk().get(0);
+    }
 }

@@ -15,7 +15,6 @@
  */
 package org.apache.juddi.api.impl;
 
-import java.util.UUID;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -25,33 +24,13 @@ import org.apache.juddi.v3.error.ValueNotAllowedException;
 import org.apache.juddi.v3.tck.TckPublisher;
 import org.apache.juddi.v3.tck.TckSecurity;
 import org.apache.juddi.v3.tck.TckTModel;
-import org.junit.AfterClass;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.uddi.api_v3.AccessPoint;
-import org.uddi.api_v3.BindingDetail;
-import org.uddi.api_v3.BindingTemplate;
-import org.uddi.api_v3.BusinessDetail;
-import org.uddi.api_v3.BusinessEntity;
-import org.uddi.api_v3.BusinessService;
-import org.uddi.api_v3.BusinessServices;
-import org.uddi.api_v3.CategoryBag;
-import org.uddi.api_v3.Description;
-import org.uddi.api_v3.GetBindingDetail;
-import org.uddi.api_v3.IdentifierBag;
-import org.uddi.api_v3.KeyedReference;
-import org.uddi.api_v3.Name;
-import org.uddi.api_v3.SaveBinding;
-import org.uddi.api_v3.SaveBusiness;
-import org.uddi.api_v3.SaveTModel;
-import org.uddi.api_v3.TModel;
-import org.uddi.api_v3.TModelDetail;
-import org.uddi.api_v3.TModelInstanceDetails;
+import org.junit.*;
+import org.uddi.api_v3.*;
 import org.uddi.v3_service.UDDIInquiryPortType;
 import org.uddi.v3_service.UDDIPublicationPortType;
 import org.uddi.v3_service.UDDISecurityPortType;
+
+import java.util.UUID;
 
 /**
  *
@@ -97,8 +76,7 @@ public class API_150_ValueSetValidationTest {
                         tckTModel.saveMaryPublisherTmodel(authInfoMary);
                         
                 } catch (Exception e) {
-                        logger.error(e.getMessage(), e);
-                        Assert.fail("Could not obtain authInfo token.");
+                        throw new RuntimeException("Could not get authentication token", e);
                 }
         }
         static String VSV_KEY = "uddi:juddi.apache.org:node1";

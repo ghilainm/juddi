@@ -16,11 +16,6 @@
  */
 package org.apache.juddi.v3.client.transport;
 
-import java.util.Map;
-import java.util.Properties;
-
-import javax.xml.ws.BindingProvider;
-
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -31,12 +26,11 @@ import org.apache.juddi.v3.client.config.UDDIClient;
 import org.apache.juddi.v3.client.config.UDDIClientContainer;
 import org.apache.juddi.v3.client.cryptor.CryptorFactory;
 import org.apache.juddi.v3_service.JUDDIApiPortType;
-import org.uddi.v3_service.UDDICustodyTransferPortType;
-import org.uddi.v3_service.UDDIInquiryPortType;
-import org.uddi.v3_service.UDDIPublicationPortType;
-import org.uddi.v3_service.UDDISecurityPortType;
-import org.uddi.v3_service.UDDISubscriptionListenerPortType;
-import org.uddi.v3_service.UDDISubscriptionPortType;
+import org.uddi.v3_service.*;
+
+import javax.xml.ws.BindingProvider;
+import java.util.Map;
+import java.util.Properties;
 
 public class JAXWSTransport extends Transport {
 
@@ -68,6 +62,7 @@ public class JAXWSTransport extends Transport {
                 this.nodeName = nodeName;
         }
 
+        @Override
         public UDDIInquiryPortType getUDDIInquiryService(String endpointURL) throws TransportException {
                 try {
                         if (inquiryService == null) {
@@ -90,6 +85,7 @@ public class JAXWSTransport extends Transport {
                 return inquiryService;
         }
 
+        @Override
         public UDDISecurityPortType getUDDISecurityService(String endpointURL) throws TransportException {
                 try {
                         if (securityService == null) {
@@ -114,6 +110,7 @@ public class JAXWSTransport extends Transport {
                 return securityService;
         }
 
+        @Override
         public UDDIPublicationPortType getUDDIPublishService(String endpointURL) throws TransportException {
                 try {
                         if (publishService == null) {
@@ -135,6 +132,7 @@ public class JAXWSTransport extends Transport {
                 return publishService;
         }
 
+        @Override
         public UDDISubscriptionPortType getUDDISubscriptionService(String endpointURL) throws TransportException {
                 try {
                         if (subscriptionService == null) {
@@ -156,6 +154,7 @@ public class JAXWSTransport extends Transport {
                 return subscriptionService;
         }
 
+        @Override
         public UDDISubscriptionListenerPortType getUDDISubscriptionListenerService(String endpointURL) throws TransportException {
                 try {
                         if (subscriptionListenerService == null) {
@@ -177,6 +176,7 @@ public class JAXWSTransport extends Transport {
                 return subscriptionListenerService;
         }
 
+        @Override
         public UDDICustodyTransferPortType getUDDICustodyTransferService(String endpointURL) throws TransportException {
                 try {
                         if (custodyTransferService == null) {
@@ -201,6 +201,7 @@ public class JAXWSTransport extends Transport {
         /**
          * This is a jUDDI specific API
          */
+        @Override
         public JUDDIApiPortType getJUDDIApiService(String endpointURL) throws TransportException {
                 try {
                         if (publisherService == null) {
@@ -209,7 +210,7 @@ public class JAXWSTransport extends Transport {
                                         endpointURL = client.getClientConfig().getUDDINode(nodeName).getJuddiApiUrl();
                                 }
                                 JUDDIApiService service = new JUDDIApiService();
-                                publisherService = (JUDDIApiPortType) service.getPort(JUDDIApiPortType.class);
+                                publisherService = service.getPort(JUDDIApiPortType.class);
                         }
                         if (endpointURL != null) {
                                 Map<String, Object> requestContext = ((BindingProvider) publisherService).getRequestContext();

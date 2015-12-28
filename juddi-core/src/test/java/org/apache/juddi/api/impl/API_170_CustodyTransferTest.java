@@ -15,30 +15,25 @@
  */
 package org.apache.juddi.api.impl;
 
-import java.rmi.RemoteException;
-import javax.xml.datatype.XMLGregorianCalendar;
-import javax.xml.ws.Holder;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.juddi.Registry;
-import org.apache.juddi.v3.tck.TckBusiness;
-import org.apache.juddi.v3.tck.TckFindEntity;
-import org.apache.juddi.v3.tck.TckPublisher;
-import org.apache.juddi.v3.tck.TckSecurity;
-import org.apache.juddi.v3.tck.TckTModel;
+import org.apache.juddi.v3.tck.*;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.uddi.api_v3.BusinessDetail;
-import org.uddi.api_v3.GetBusinessDetail;
 import org.uddi.api_v3.GetOperationalInfo;
 import org.uddi.api_v3.OperationalInfos;
 import org.uddi.custody_v3.KeyBag;
 import org.uddi.custody_v3.TransferEntities;
 import org.uddi.custody_v3.TransferToken;
 import org.uddi.v3_service.UDDISecurityPortType;
+
+import javax.xml.datatype.XMLGregorianCalendar;
+import javax.xml.ws.Holder;
+import java.rmi.RemoteException;
 
 /**
  *
@@ -71,8 +66,7 @@ public class API_170_CustodyTransferTest {
                         tckTModel.saveMaryPublisherTmodel(authInfoMary);
                         tckTModel.saveSamSyndicatorTmodel(authInfoSam);
                 } catch (RemoteException e) {
-                        logger.error(e.getMessage(), e);
-                        Assert.fail("Could not obtain authInfo token.");
+                        throw new RuntimeException("Could not get authentication token", e);
                 }
         }
 
