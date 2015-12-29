@@ -21,10 +21,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.juddi.v3.client.UDDIConstants;
 import org.apache.juddi.v3.client.config.UDDIClient;
 import org.apache.juddi.v3.client.transport.Transport;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
 import org.uddi.api_v3.*;
 import org.uddi.v3_service.UDDIInquiryPortType;
 import org.uddi.v3_service.UDDIPublicationPortType;
@@ -34,9 +31,6 @@ import javax.xml.ws.BindingProvider;
 import java.io.File;
 import java.io.PrintWriter;
 import java.util.*;
-
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assume.assumeThat;
 
 /**
  * Runs a number of tests and calculates operations/second as part of a unit
@@ -119,7 +113,7 @@ public class UDDI_040_PerformanceIntegrationTest {
 
     @Before
     public void assumePerformanceEnabled(){
-        assumeThat(TckPublisher.isLoadTest() , is(true));
+        Assume.assumeTrue(TckPublisher.isLoadTest());
     }
 
     long counter = 30;
