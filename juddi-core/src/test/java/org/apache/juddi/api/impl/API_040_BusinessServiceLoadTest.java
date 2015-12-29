@@ -76,6 +76,7 @@ public class API_040_BusinessServiceLoadTest {
     @AfterClass
     public static void shutdown() throws ConfigurationException {
         tckTModel.deleteCreatedTModels(authInfoJoe);
+        System.clearProperty(JUDDI_CONFIGURATION_FILE_SYSTEM_PROPERTY);
     }
 
     /**
@@ -88,7 +89,6 @@ public class API_040_BusinessServiceLoadTest {
     @Test
     public void find20Businesses() throws DispositionReportFaultMessage, ConfigurationException {
         try {
-            System.setProperty(JUDDI_CONFIGURATION_FILE_SYSTEM_PROPERTY, "/src/test/resources/juddiv3DisabledTModelKeybag.xml");
             tckTModel.saveJoePublisherTmodel(authInfoJoe);
             create100JoeBusinessesWith100ServicesEach();
             find20JoeBusinessesInLessThan5Sec();

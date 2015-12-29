@@ -14,40 +14,32 @@
  */
 package org.apache.juddi.auth;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.StringWriter;
-import java.security.InvalidKeyException;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.juddi.api.impl.API_010_PublisherTest;
 import org.apache.juddi.config.AppConfig;
 import org.apache.juddi.config.Property;
-import org.apache.juddi.v3.client.cryptor.AES128Cryptor;
-import org.apache.juddi.v3.client.cryptor.AES256Cryptor;
-import org.apache.juddi.v3.client.cryptor.Cryptor;
 import org.apache.juddi.cryptor.CryptorFactory;
-import org.apache.juddi.v3.client.cryptor.DefaultCryptor;
-import org.apache.juddi.v3.client.cryptor.TripleDESCrytor;
-import org.apache.juddi.v3.auth.Authenticator;
-import org.apache.juddi.v3.auth.CryptedXMLDocAuthenticator;
-import org.apache.juddi.v3.auth.JUDDIAuthenticator;
-import org.apache.juddi.v3.auth.JuddiUsers;
-import org.apache.juddi.v3.auth.MD5XMLDocAuthenticator;
-import org.apache.juddi.v3.auth.User;
-import org.apache.juddi.v3.auth.XMLDocAuthenticator;
+import org.apache.juddi.v3.auth.*;
+import org.apache.juddi.v3.client.cryptor.*;
 import org.apache.juddi.v3.error.AuthenticationException;
 import org.apache.juddi.v3.error.FatalErrorException;
 import org.apache.juddi.v3.error.UnknownUserException;
+import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Test;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import java.io.File;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.security.InvalidKeyException;
+
+import static org.apache.juddi.config.AppConfig.JUDDI_CONFIGURATION_FILE_SYSTEM_PROPERTY;
 
 /**
  * @author <a href="mailto:kstam@apache.org">Kurt T Stam</a>
@@ -55,6 +47,12 @@ import org.junit.Test;
 public class AuthenticatorTest 
 {
 	private Log logger = LogFactory.getLog(this.getClass());
+
+	@AfterClass
+	public static void cleanUp(){
+		System.clearProperty(JUDDI_CONFIGURATION_FILE_SYSTEM_PROPERTY);
+	}
+
 	/**
 	 * The DefaultAuthenticator is basically a pass-through.
 	 * @throws ConfigurationException
