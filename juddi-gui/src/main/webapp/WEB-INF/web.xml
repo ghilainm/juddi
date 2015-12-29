@@ -97,7 +97,7 @@
             <url-pattern>/ajax/settings.jsp</url-pattern>
         </web-resource-collection>
         <auth-constraint>
-            <role-name>${juddi.security.role}</role-name>
+            <role-name>uddiadmin</role-name>
         </auth-constraint>
         <!-- uncomment to require SSL <user-data-constraint>
           <transport-guarantee>CONFIDENTIAL</transport-guarantee>
@@ -110,6 +110,6 @@
         <realm-name>Apache jUDDI - Make sure you're using HTTPS!</realm-name>
     </login-config>
     <security-role>
-        <role-name>${juddi.security.role}</role-name>
+        <role-name>uddiadmin</role-name>
     </security-role>
 </web-app>

@@ -21,19 +21,10 @@
 --%>
 
 
-<%@page import="org.apache.juddi.config.Property"%>
+<%@page import="org.apache.commons.configuration.Configuration"%>
 <%@page import="org.apache.juddi.config.AppConfig"%>
-<%@page import="org.apache.juddi.api_v3.Publisher"%>
-<%@page import="org.apache.juddi.api_v3.SavePublisher"%>
-<%@page import="org.apache.juddi.api_v3.Clerk"%>
-<%@page import="org.apache.juddi.api_v3.SaveClerk"%>
-<%@page import="org.apache.juddi.api_v3.SyncSubscription"%>
-<%@page import="org.apache.juddi.api_v3.GetPublisherDetail"%>
-<%@page import="org.apache.juddi.api_v3.GetAllPublisherDetail"%>
-<%@page import="org.apache.juddi.api_v3.DeletePublisher"%>
-<%@page import="org.uddi.api_v3.DeleteTModel"%>
-<%@page import="org.apache.juddi.v3_service.JUDDIApiPortType"%>
-<%@page import="org.apache.commons.lang.StringEscapeUtils"%>
+<%@page import="org.apache.juddi.config.Property"%>
+<%@ page import="org.apache.juddi.v3.client.config.ClientConfig" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="header-top.jsp"%>
 
@@ -50,8 +41,10 @@
 
 
                 <div class="span12">
-                        <% UddiAdminHub x = UddiAdminHub.getInstance(application, session);
-                        
+                        <% 
+                            UddiAdminHub x = UddiAdminHub.getInstance(application, session);
+                            ClientConfig cfg = x.GetJuddiClientConfig();
+                            Configuration cfg2 = cfg.getConfiguration();
                         %> 
                         <%=ResourceLoader.GetResource(session, "pages.admin.content")%>
                         <br>
@@ -146,14 +139,14 @@
                                         Factory URL Packages <input type="text" id="NODEsetFactoryURLPkgs"  class="forminput" placeholder="only needed for RMI transport"><br>
                                         Factory Naming Provider <input type="text" id="NODEsetFactoryNamingProvider"  class="forminput" placeholder="only needed for RMI transport"><br>
                                         <%=ResourceLoader.GetResource(session, "items.transport")%> <input type="text" id="NODEsetProxyTransport"  class="forminput" placeholder="org.apache.juddi.v3.client.transport.JAXWSTransport" value="org.apache.juddi.v3.client.transport.JAXWSTransport"><br>
-                                        <%=ResourceLoader.GetResource(session, "items.inquiry")%> <input type="text" id="NODEsetInquiryUrl"  class="forminput" placeholder="${juddi.http.url}/services/inquiry" value="${juddi.http.url}/services/inquiry"><br>
-                                        <%=ResourceLoader.GetResource(session, "items.publish")%> <input type="text" id="NODEsetPublishUrl"  class="forminput" placeholder="${juddi.http.url}/services/publish" value="${juddi.http.url}/services/publish"><br>
-                                        <%=ResourceLoader.GetResource(session, "items.security")%> <input type="text" id="NODEsetSecurityUrl"  class="forminput" placeholder="${juddi.http.url}/services/security" value="${juddi.http.url}/services/security"><br>
-                                        <%=ResourceLoader.GetResource(session, "items.subscription.list")%> <input type="text" id="NODEsetSubscriptionListenerUrl"  class="forminput" placeholder="${juddi.http.url}/services/subscription-listener" value="${juddi.http.url}/services/subscription-listener"><br>
-                                        <%=ResourceLoader.GetResource(session, "items.subscription")%> <input type="text" id="NODEsetSubscriptionUrl"  class="forminput" placeholder="${juddi.http.url}/services/subscription" value="${juddi.http.url}/services/subscription"><br>
-                                        <%=ResourceLoader.GetResource(session, "items.custodytransfer")%> <input type="text" id="NODEsetCustodyTransferUrl"  class="forminput" placeholder="${juddi.http.url}/services/custody-transfer" value="${juddi.http.url}/services/custody-transfer"><br>
-                                        <%=ResourceLoader.GetResource(session, "items.replication")%> <input type="text" id="NODEsetReplicationUrl"  class="forminput" placeholder="${juddi.http.url}/services/replication" value="${juddi.http.url}/services/replication"><br>
-                                        jUDDI API <input type="text" id="NODEsetJuddiApiUrl"  class="forminput" placeholder="${juddi.http.url}/services/juddi-api" value="${juddi.http.url}/services/juddi-api"><br>
+                                        <%=ResourceLoader.GetResource(session, "items.inquiry")%> <input type="text" id="NODEsetInquiryUrl"  class="forminput" placeholder="<%=cfg2.getProperty("juddi.http.url")%>/services/inquiry" value="<%=cfg2.getProperty("juddi.http.url")%>/services/inquiry"><br>
+                                        <%=ResourceLoader.GetResource(session, "items.publish")%> <input type="text" id="NODEsetPublishUrl"  class="forminput" placeholder="<%=cfg2.getProperty("juddi.http.url")%>/services/publish" value="<%=cfg2.getProperty("juddi.http.url")%>/services/publish"><br>
+                                        <%=ResourceLoader.GetResource(session, "items.security")%> <input type="text" id="NODEsetSecurityUrl"  class="forminput" placeholder="<%=cfg2.getProperty("juddi.http.url")%>/services/security" value="<%=cfg2.getProperty("juddi.http.url")%>/services/security"><br>
+                                        <%=ResourceLoader.GetResource(session, "items.subscription.list")%> <input type="text" id="NODEsetSubscriptionListenerUrl"  class="forminput" placeholder="<%=cfg2.getProperty("juddi.http.url")%>/services/subscription-listener" value="<%=cfg2.getProperty("juddi.http.url")%>/services/subscription-listener"><br>
+                                        <%=ResourceLoader.GetResource(session, "items.subscription")%> <input type="text" id="NODEsetSubscriptionUrl"  class="forminput" placeholder="<%=cfg2.getProperty("juddi.http.url")%>/services/subscription" value="<%=cfg2.getProperty("juddi.http.url")%>/services/subscription"><br>
+                                        <%=ResourceLoader.GetResource(session, "items.custodytransfer")%> <input type="text" id="NODEsetCustodyTransferUrl"  class="forminput" placeholder="<%=cfg2.getProperty("juddi.http.url")%>/services/custody-transfer" value="<%=cfg2.getProperty("juddi.http.url")%>/services/custody-transfer"><br>
+                                        <%=ResourceLoader.GetResource(session, "items.replication")%> <input type="text" id="NODEsetReplicationUrl"  class="forminput" placeholder="<%=cfg2.getProperty("juddi.http.url")%>/services/replication" value="<%=cfg2.getProperty("juddi.http.url")%>/services/replication"><br>
+                                        jUDDI API <input type="text" id="NODEsetJuddiApiUrl"  class="forminput" placeholder="<%=cfg2.getProperty("juddi.http.url")%>/services/juddi-api" value="<%=cfg2.getProperty("juddi.http.url")%>/services/juddi-api"><br>
                                 </div>
                                 <div id="save_Clerk" style="display:none">
                                         <%=ResourceLoader.GetResource(session, "items.name")%> <input type="text" id="CLERKsetName"  class="forminput" placeholder="Enter name"><br>
@@ -168,14 +161,14 @@
                                         Factory URL Packages <input type="text" id="CLERKNODEsetFactoryURLPkgs"  class="forminput" placeholder="only needed for RMI transport"><br>
                                         Factory Naming Provider <input type="text" id="CLERKNODEsetFactoryNamingProvider"  class="forminput" placeholder="only needed for RMI transport"><br>
                                         <%=ResourceLoader.GetResource(session, "items.transport")%> <input type="text" id="CLERKNODEsetProxyTransport"  class="forminput" placeholder="org.apache.juddi.v3.client.transport.JAXWSTransport" value="org.apache.juddi.v3.client.transport.JAXWSTransport"><br>
-                                        <%=ResourceLoader.GetResource(session, "items.inquiry")%> <input type="text" id="CLERKNODEsetInquiryUrl"  class="forminput" placeholder="${juddi.http.url}/services/inquiry" value="${juddi.http.url}/services/inquiry"><br>
-                                        <%=ResourceLoader.GetResource(session, "items.publish")%> <input type="text" id="CLERKNODEsetPublishUrl"  class="forminput" placeholder="${juddi.http.url}/services/publish" value="${juddi.http.url}/services/publish"><br>
-                                        <%=ResourceLoader.GetResource(session, "items.security")%> <input type="text" id="CLERKNODEsetSecurityUrl"  class="forminput" placeholder="${juddi.http.url}/services/security" value="${juddi.http.url}/services/security"><br>
-                                        <%=ResourceLoader.GetResource(session, "items.subscription.list")%> <input type="text" id="CLERKNODEsetSubscriptionListenerUrl"  class="forminput" placeholder="${juddi.http.url}/services/subscription-listener" value="${juddi.http.url}/services/subscription-listener"><br>
-                                        <%=ResourceLoader.GetResource(session, "items.subscription")%> <input type="text" id="CLERKNODEsetSubscriptionUrl"  class="forminput" placeholder="${juddi.http.url}/services/subscription" value="${juddi.http.url}/services/subscription"><br>
-                                        <%=ResourceLoader.GetResource(session, "items.custodytransfer")%> <input type="text" id="CLERKNODEsetCustodyTransferUrl"  class="forminput" placeholder="${juddi.http.url}/services/custody-transfer" value="${juddi.http.url}/services/custody-transfer"><br>
-                                        <%=ResourceLoader.GetResource(session, "items.replication")%> <input type="text" id="CLERKNODEsetReplicationUrl"  class="forminput" placeholder="${juddi.http.url}/services/replication" value="${juddi.http.url}/services/replication"><br>
-                                        jUDDI API <input type="text" id="CLERKNODEsetJuddiApiUrl"  class="forminput" placeholder="${juddi.http.url}/services/juddi-api" value="${juddi.http.url}/services/juddi-api"><br>
+                                        <%=ResourceLoader.GetResource(session, "items.inquiry")%> <input type="text" id="CLERKNODEsetInquiryUrl"  class="forminput" placeholder="<%=cfg2.getProperty("juddi.http.url")%>/services/inquiry" value="<%=cfg2.getProperty("juddi.http.url")%>/services/inquiry"><br>
+                                        <%=ResourceLoader.GetResource(session, "items.publish")%> <input type="text" id="CLERKNODEsetPublishUrl"  class="forminput" placeholder="<%=cfg2.getProperty("juddi.http.url")%>/services/publish" value="<%=cfg2.getProperty("juddi.http.url")%>/services/publish"><br>
+                                        <%=ResourceLoader.GetResource(session, "items.security")%> <input type="text" id="CLERKNODEsetSecurityUrl"  class="forminput" placeholder="<%=cfg2.getProperty("juddi.http.url")%>/services/security" value="<%=cfg2.getProperty("juddi.http.url")%>/services/security"><br>
+                                        <%=ResourceLoader.GetResource(session, "items.subscription.list")%> <input type="text" id="CLERKNODEsetSubscriptionListenerUrl"  class="forminput" placeholder="<%=cfg2.getProperty("juddi.http.url")%>/services/subscription-listener" value="<%=cfg2.getProperty("juddi.http.url")%>/services/subscription-listener"><br>
+                                        <%=ResourceLoader.GetResource(session, "items.subscription")%> <input type="text" id="CLERKNODEsetSubscriptionUrl"  class="forminput" placeholder="<%=cfg2.getProperty("juddi.http.url")%>/services/subscription" value="<%=cfg2.getProperty("juddi.http.url")%>/services/subscription"><br>
+                                        <%=ResourceLoader.GetResource(session, "items.custodytransfer")%> <input type="text" id="CLERKNODEsetCustodyTransferUrl"  class="forminput" placeholder="<%=cfg2.getProperty("juddi.http.url")%>/services/custody-transfer" value="<%=cfg2.getProperty("juddi.http.url")%>/services/custody-transfer"><br>
+                                        <%=ResourceLoader.GetResource(session, "items.replication")%> <input type="text" id="CLERKNODEsetReplicationUrl"  class="forminput" placeholder="<%=cfg2.getProperty("juddi.http.url")%>/services/replication" value="<%=cfg2.getProperty("juddi.http.url")%>/services/replication"><br>
+                                        jUDDI API <input type="text" id="CLERKNODEsetJuddiApiUrl"  class="forminput" placeholder="<%=cfg2.getProperty("juddi.http.url")%>/services/juddi-api" value="<%=cfg2.getProperty("juddi.http.url")%>/services/juddi-api"><br>
 
                                 </div>
                                         

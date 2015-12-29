@@ -17,7 +17,8 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.apache</groupId>
@@ -31,7 +32,8 @@ under the License.
     <name>jUDDI_v3 Parent</name>
     <description>jUDDI (pronounced "Judy") is an open source Java
         implementation of the Universal Description, Discovery, and
-        Integration (UDDI) specification for Web Services.</description>
+        Integration (UDDI) specification for Web Services.
+    </description>
     <url>http://juddi.apache.org/</url>
 
     <prerequisites>
@@ -44,11 +46,6 @@ under the License.
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <cxf.version>2.7.14</cxf.version>
         <springframework.version>3.2.2.RELEASE</springframework.version>
-        <juddi.hostname>localhost</juddi.hostname>
-        <juddi.http.port>8080</juddi.http.port>
-        <juddi.https.port>8443</juddi.https.port>
-        <juddi.http.url>http://${juddi.hostname}:${juddi.http.port}/juddiv3</juddi.http.url>
-            <juddi.https.url>http://${juddi.hostname}:${juddi.https.port}/juddiv3</juddi.https.url>
     </properties>
 
     <issueManagement>
@@ -288,7 +285,7 @@ under the License.
                                 <include>*.ddl</include>
                                 <include>*.log</include>
                             </includes>
-			          
+
                         </fileset>
                     </filesets>
                 </configuration>
@@ -402,7 +399,7 @@ under the License.
             <layout>default</layout>
         </repository>
 
-         <repository>
+        <repository>
             <id>central</id>
             <name>Maven Central Repository</name>
             <url>http://central.maven.org/maven2</url>
@@ -420,12 +417,12 @@ under the License.
             <id>maven2-repository.dev.java.net</id>
             <url>http://download.java.net/maven/2</url>
         </pluginRepository>
-       <!--  this repo is dead jim
-	<pluginRepository>
-            <id>nexus.codehaus</id>
-            <url>https://nexus.codehaus.org/content/repositories/releases/</url>
-        </pluginRepository>
--->
+        <!--  this repo is dead jim
+     <pluginRepository>
+             <id>nexus.codehaus</id>
+             <url>https://nexus.codehaus.org/content/repositories/releases/</url>
+         </pluginRepository>
+ -->
     </pluginRepositories>
     <profiles>
         <!-- inherit from the apache parent: release-profile -->
@@ -546,9 +543,13 @@ under the License.
                                 <exclude>juddi-client.net/packages/NUnit.2.6.2/NUnit.2.6.2.nuspec</exclude>
                                 <exclude>juddi-client.net/clean.txt</exclude>
                                 <exclude>juddi-client.net/input.txt</exclude>
-                                <exclude>juddi-client.net/juddi-client.net/org.apache.juddi.v3.client.mapping/wadl.xsd</exclude>
-                                <exclude>juddi-client.net/juddi-client.net/org.apache.juddi.v3.client.mapping/wsdl.xsd</exclude>
-                                <exclude>juddi-client.net/juddi-client.net/org.apache.juddi.v3.client.mapping/XMLSchema.xsd</exclude>
+                                <exclude>juddi-client.net/juddi-client.net/org.apache.juddi.v3.client.mapping/wadl.xsd
+                                </exclude>
+                                <exclude>juddi-client.net/juddi-client.net/org.apache.juddi.v3.client.mapping/wsdl.xsd
+                                </exclude>
+                                <exclude>
+                                    juddi-client.net/juddi-client.net/org.apache.juddi.v3.client.mapping/XMLSchema.xsd
+                                </exclude>
                                 <exclude>juddi-client.net/packages/NUnit.2.6.2/lib/nunit.framework.xml</exclude>
                                 <exclude>juddi-client.net/example/AspnetServiceLifeCycle/global.asa</exclude>
                                 <!-- uddi-ws-->
@@ -561,7 +562,7 @@ under the License.
                                 <exclude>**/xml.xsd</exclude>
                                 <exclude>**/XMLSchema.dtd</exclude>
                                 <exclude>**/xmldsig-core-schema.xsd</exclude>
- 
+
                                 <!-- TCK BASE -->
                                 <exclude>src/main/resources/uddi_data/bpel/riftsaw/bpel-technote.bpel</exclude>
                                 <exclude>src/main/resources/uddi_data/bpel/riftsaw/bpel-technote.wsdl</exclude>
@@ -592,7 +593,7 @@ under the License.
                                 <exclude>src/main/resources/schemas/orm_1_0.xsd</exclude>
                                 <exclude>src/main/resources/schemas/persistence_1_0.xsd</exclude>
                                 <exclude>src/main/resources/spring-beans.xsd.xml</exclude>
-  
+
                                 <exclude>**/bootstrap-timepicker.*</exclude>
                                 <exclude>**/test/selenium/*.*</exclude>
                                 <exclude>**/*.properties</exclude>

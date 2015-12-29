@@ -30,12 +30,14 @@ It currently does not use the ValueSet, jUDDI, Replication, or REST APIs
                 <name>default</name> 
                 <description>UDDIv3 Node (localhost)</description>
                 <!-- JAX-WS Transport -->
+                <!-- service.registry.http.url this variable must be provided as an environment variable
+                it could be for example as a JVM property -->
                 <proxyTransport>org.apache.juddi.v3.client.transport.JAXWSTransport</proxyTransport>
-                <custodyTransferUrl>${juddi.http.url}/UDDICustodyTransferService</custodyTransferUrl>
-                <inquiryUrl>${juddi.http.url}/UDDIInquiryService</inquiryUrl>
-                <publishUrl>${juddi.http.url}/UDDIPublicationService</publishUrl>
-                <securityUrl>${juddi.http.url}/UDDISecurityService</securityUrl>
-                <subscriptionUrl>${juddi.http.url}/UDDISubscriptionService</subscriptionUrl>
+                <custodyTransferUrl>${service.registry.http.url}/UDDICustodyTransferService</custodyTransferUrl>
+                <inquiryUrl>${service.registry.http.url}/UDDIInquiryService</inquiryUrl>
+                <publishUrl>${service.registry.http.url}/UDDIPublicationService</publishUrl>
+                <securityUrl>${service.registry.http.url}/UDDISecurityService</securityUrl>
+                <subscriptionUrl>${service.registry.http.url}/UDDISubscriptionService</subscriptionUrl>
             </node>
              <node>
                 <name>default-ssl</name> 
@@ -43,10 +45,10 @@ It currently does not use the ValueSet, jUDDI, Replication, or REST APIs
                 <!-- JAX-WS Transport -->
                 <proxyTransport>org.apache.juddi.v3.client.transport.JAXWSTransport</proxyTransport>
                 <custodyTransferUrl>http://localhost:8443/juddiv3/services/custody-transfer</custodyTransferUrl>
-                <inquiryUrl>${juddi.https.url}/services/inquiry</inquiryUrl>
-                <publishUrl>${juddi.https.url}/services/publish</publishUrl>
-                <securityUrl>${juddi.https.url}/services/security</securityUrl>
-                <subscriptionUrl>${juddi.https.url}/services/subscription</subscriptionUrl>
+                <inquiryUrl>${service.registry.https.url}/services/inquiry</inquiryUrl>
+                <publishUrl>${service.registry.https.url}/services/publish</publishUrl>
+                <securityUrl>${service.registry.https.url}/services/security</securityUrl>
+                <subscriptionUrl>${service.registry.https.url}/services/subscription</subscriptionUrl>
             </node>
         </nodes>
 		<signature>

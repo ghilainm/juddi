@@ -45,7 +45,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
-                    <argLine>-Djuddi.http.url=${juddi.http.url} -Djuddi.gui.http.url=${juddi.gui.http.url}
+                    <argLine>-Dservice.registry.http.url=${service.registry.http.url} -Djuddi.gui.http.url=${juddi.gui.http.url}
                         -Djava.util.logging.config.file=logging.properties
                         -Dlocal.hostname=${local.hostname}
                     </argLine>

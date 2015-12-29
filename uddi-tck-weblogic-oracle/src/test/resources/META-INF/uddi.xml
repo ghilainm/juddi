@@ -13,30 +13,30 @@
                 <name>uddiv3</name>
                 <description>Main jUDDI node</description>
                 <proxyTransport>org.apache.juddi.v3.client.transport.JAXWSTransport</proxyTransport>
-                <custodyTransferUrl>${juddi.http.url}/UDDICustodyTransferService</custodyTransferUrl>
-                <inquiryUrl>${juddi.http.url}/UDDIInquiryService</inquiryUrl>
-                <inquiryRESTUrl>${juddi.http.url}/inquiryRest/XML/getDetail</inquiryRESTUrl>
-                <publishUrl>${juddi.http.url}/UDDIPublicationService</publishUrl>
-                <securityUrl>${juddi.http.url}/UDDISecurityService</securityUrl>
-                <subscriptionUrl>${juddi.http.url}/UDDISubscriptionService</subscriptionUrl>
-                <subscriptionListenerUrl>${juddi.http.url}/UDDISubscriptionListenerService</subscriptionListenerUrl>
-                <juddiApiUrl>${juddi.http.url}/JUDDIApiService</juddiApiUrl>
-                <replicationUrl>${juddi.http.url}/UDDI_Replication_PortType</replicationUrl>
+                <custodyTransferUrl>${service.registry.http.url}/UDDICustodyTransferService</custodyTransferUrl>
+                <inquiryUrl>${service.registry.http.url}/UDDIInquiryService</inquiryUrl>
+                <inquiryRESTUrl>${service.registry.http.url}/inquiryRest/XML/getDetail</inquiryRESTUrl>
+                <publishUrl>${service.registry.http.url}/UDDIPublicationService</publishUrl>
+                <securityUrl>${service.registry.http.url}/UDDISecurityService</securityUrl>
+                <subscriptionUrl>${service.registry.http.url}/UDDISubscriptionService</subscriptionUrl>
+                <subscriptionListenerUrl>${service.registry.http.url}/UDDISubscriptionListenerService</subscriptionListenerUrl>
+                <juddiApiUrl>${service.registry.http.url}/JUDDIApiService</juddiApiUrl>
+                <replicationUrl>${service.registry.http.url}/UDDI_Replication_PortType</replicationUrl>
                 <juddigui>${juddi.gui.http.url}</juddigui>
             </node>
             <node>
                 <name>uddiv3-2</name>
                 <description>Second factice UDDI node. It has the same physical node as the first one.</description>
                 <proxyTransport>org.apache.juddi.v3.client.transport.JAXWSTransport</proxyTransport>
-                <custodyTransferUrl>${juddi.http.url}/UDDICustodyTransferService</custodyTransferUrl>
-                <inquiryUrl>${juddi.http.url}/UDDIInquiryService</inquiryUrl>
-                <inquiryRESTUrl>${juddi.http.url}/inquiryRest/XML/getDetail</inquiryRESTUrl>
-                <publishUrl>${juddi.http.url}/UDDIPublicationService</publishUrl>
-                <securityUrl>${juddi.http.url}/UDDISecurityService</securityUrl>
-                <subscriptionUrl>${juddi.http.url}/UDDISubscriptionService</subscriptionUrl>
-                <subscriptionListenerUrl>${juddi.http.url}/UDDISubscriptionListenerService</subscriptionListenerUrl>
-                <juddiApiUrl>${juddi.http.url}/JUDDIApiService</juddiApiUrl>
-                <replicationUrl>${juddi.http.url}/UDDI_Replication_PortType</replicationUrl>
+                <custodyTransferUrl>${service.registry.http.url}/UDDICustodyTransferService</custodyTransferUrl>
+                <inquiryUrl>${service.registry.http.url}/UDDIInquiryService</inquiryUrl>
+                <inquiryRESTUrl>${service.registry.http.url}/inquiryRest/XML/getDetail</inquiryRESTUrl>
+                <publishUrl>${service.registry.http.url}/UDDIPublicationService</publishUrl>
+                <securityUrl>${service.registry.http.url}/UDDISecurityService</securityUrl>
+                <subscriptionUrl>${service.registry.http.url}/UDDISubscriptionService</subscriptionUrl>
+                <subscriptionListenerUrl>${service.registry.http.url}/UDDISubscriptionListenerService</subscriptionListenerUrl>
+                <juddiApiUrl>${service.registry.http.url}/JUDDIApiService</juddiApiUrl>
+                <replicationUrl>${service.registry.http.url}/UDDI_Replication_PortType</replicationUrl>
                 <juddigui>${juddi.gui.http.url}</juddigui>
             </node>
             <!-- this is only used when uddiv2.enable=true in tck.properties -->
@@ -48,8 +48,8 @@
                     <property name="serverPort" value="8080" />
                 </properties>
                 <proxyTransport>org.apache.juddi.v3.client.transport.JAXWSv2TranslationTransport</proxyTransport>
-                <inquiryUrl>${juddi.http.url}/Inquire</inquiryUrl>
-                <publishUrl>${juddi.http.url}/Publish</publishUrl>
+                <inquiryUrl>${service.registry.http.url}/Inquire</inquiryUrl>
+                <publishUrl>${service.registry.http.url}/Publish</publishUrl>
             </node>
         </nodes>
 

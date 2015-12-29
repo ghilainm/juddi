@@ -23,79 +23,81 @@ under the License.
         <nodes>
             <node>
                 <!-- required 'default' node -->
-                <name>remote</name> 
+                <name>remote</name>
                 <description>Main jUDDI node</description>
                 <!-- JAX-WS Transport -->
                 <proxyTransport>org.apache.juddi.v3.client.transport.JAXWSTransport</proxyTransport>
-                <custodyTransferUrl>${juddi.http.url}/services/custody-transfer</custodyTransferUrl>
-                <inquiryUrl>${juddi.http.url}/services/inquiry</inquiryUrl>
-				<inquiryRESTUrl>${juddi.http.url}/services/inquiryRest</inquiryRESTUrl>
-                <publishUrl>${juddi.http.url}/services/publish</publishUrl>
-                <securityUrl>${juddi.http.url}/services/security</securityUrl>
-                <subscriptionUrl>${juddi.http.url}/services/subscription</subscriptionUrl>
-                <subscriptionListenerUrl>${juddi.http.url}/services/subscription-listener</subscriptionListenerUrl>
-                <juddiApiUrl>${juddi.http.url}/services/juddi-api</juddiApiUrl>
+                <custodyTransferUrl>http://localhost:8080/juddiv3/services/custody-transfer</custodyTransferUrl>
+                <inquiryUrl>http://localhost:8080/juddiv3/services/inquiry</inquiryUrl>
+                <inquiryRESTUrl>http://localhost:8080/juddiv3/services/inquiryRest</inquiryRESTUrl>
+                <publishUrl>http://localhost:8080/juddiv3/services/publish</publishUrl>
+                <securityUrl>http://localhost:8080/juddiv3/services/security</securityUrl>
+                <subscriptionUrl>http://localhost:8080/juddiv3/services/subscription</subscriptionUrl>
+                <subscriptionListenerUrl>http://localhost:8080/juddiv3/services/subscription-listener
+                </subscriptionListenerUrl>
+                <juddiApiUrl>http://localhost:8080/juddiv3/services/juddi-api</juddiApiUrl>
             </node>
             <node>
-                <name>default</name> 
+                <name>default</name>
                 <description>This server</description>
                 <!-- InVM Transport -->
-               <proxyTransport>org.apache.juddi.v3.client.transport.InVMTransport</proxyTransport>
-               <custodyTransferUrl>org.apache.juddi.api.impl.UDDICustodyTransferImpl</custodyTransferUrl>
-               <inquiryUrl>org.apache.juddi.api.impl.UDDIInquiryImpl</inquiryUrl>
-               <publishUrl>org.apache.juddi.api.impl.UDDIPublicationImpl</publishUrl>
-               <securityUrl>org.apache.juddi.api.impl.UDDISecurityImpl</securityUrl>
-               <subscriptionUrl>org.apache.juddi.api.impl.UDDISubscriptionImpl</subscriptionUrl>
-               <subscriptionListenerUrl>org.apache.juddi.api.impl.UDDISubscriptionListenerImpl</subscriptionListenerUrl>
-               <juddiApiUrl>org.apache.juddi.api.impl.JUDDIApiImpl</juddiApiUrl>
+                <proxyTransport>org.apache.juddi.v3.client.transport.InVMTransport</proxyTransport>
+                <custodyTransferUrl>org.apache.juddi.api.impl.UDDICustodyTransferImpl</custodyTransferUrl>
+                <inquiryUrl>org.apache.juddi.api.impl.UDDIInquiryImpl</inquiryUrl>
+                <publishUrl>org.apache.juddi.api.impl.UDDIPublicationImpl</publishUrl>
+                <securityUrl>org.apache.juddi.api.impl.UDDISecurityImpl</securityUrl>
+                <subscriptionUrl>org.apache.juddi.api.impl.UDDISubscriptionImpl</subscriptionUrl>
+                <subscriptionListenerUrl>org.apache.juddi.api.impl.UDDISubscriptionListenerImpl
+                </subscriptionListenerUrl>
+                <juddiApiUrl>org.apache.juddi.api.impl.JUDDIApiImpl</juddiApiUrl>
             </node>
         </nodes>
-		<signature>
-			<!-- signing stuff (not used)-->
-			<signingKeyStorePath></signingKeyStorePath>
-			<signingKeyStoreType>JKS</signingKeyStoreType>
-			<signingKeyStoreFilePassword 
-				isPasswordEncrypted="false" 
-				cryptoProvider="org.apache.juddi.v3.client.crypto.AES128Cryptor"></signingKeyStoreFilePassword>
-			<signingKeyPassword
-				isPasswordEncrypted="false" 
-				cryptoProvider="org.apache.juddi.v3.client.crypto.AES128Cryptor"></signingKeyPassword>
-			<signingKeyAlias>(not used)</signingKeyAlias>
-			<canonicalizationMethod>http://www.w3.org/2001/10/xml-exc-c14n#</canonicalizationMethod>
-			<signatureMethod>RSA_SHA1</signatureMethod>
-			<XML_DIGSIG_NS>http://www.w3.org/2000/09/xmldsig#</XML_DIGSIG_NS>
-			<!-- validation stuff -->
-			<trustStorePath></trustStorePath>
-			<trustStoreType></trustStoreType>
-			<trustStorePassword
-				isPasswordEncrypted="false" 
-				cryptoProvider="org.apache.juddi.v3.client.crypto.AES128Cryptor"></trustStorePassword>
-			
-			<checkTimestamps>true</checkTimestamps>
-			<checkTrust>true</checkTrust>
-			<checkRevocationCRL>true</checkRevocationCRL>
-		</signature>
-		<subscriptionCallbacks>
-			<keyDomain></keyDomain>
-			<listenUrl></listenUrl>
-			<autoRegisterBindingTemplate>false</autoRegisterBindingTemplate>
-			<autoRegisterBusinessServiceKey></autoRegisterBusinessServiceKey>
-			<signatureBehavior>DoNothing</signatureBehavior>
-			<!--valid values are AbortIfSigned,Sign,DoNothing,SignOnlyIfParentIsntSigned, default is DoNothing-->
-		</subscriptionCallbacks>
-		<XtoWsdl>
-			<IgnoreSSLErrors>false</IgnoreSSLErrors>
-		</XtoWsdl>
+        <signature>
+            <!-- signing stuff (not used)-->
+            <signingKeyStorePath></signingKeyStorePath>
+            <signingKeyStoreType>JKS</signingKeyStoreType>
+            <signingKeyStoreFilePassword
+                    isPasswordEncrypted="false"
+                    cryptoProvider="org.apache.juddi.v3.client.crypto.AES128Cryptor"></signingKeyStoreFilePassword>
+            <signingKeyPassword
+                    isPasswordEncrypted="false"
+                    cryptoProvider="org.apache.juddi.v3.client.crypto.AES128Cryptor"></signingKeyPassword>
+            <signingKeyAlias>(not used)</signingKeyAlias>
+            <canonicalizationMethod>http://www.w3.org/2001/10/xml-exc-c14n#</canonicalizationMethod>
+            <signatureMethod>RSA_SHA1</signatureMethod>
+            <XML_DIGSIG_NS>http://www.w3.org/2000/09/xmldsig#</XML_DIGSIG_NS>
+            <!-- validation stuff -->
+            <trustStorePath></trustStorePath>
+            <trustStoreType></trustStoreType>
+            <trustStorePassword
+                    isPasswordEncrypted="false"
+                    cryptoProvider="org.apache.juddi.v3.client.crypto.AES128Cryptor"></trustStorePassword>
+
+            <checkTimestamps>true</checkTimestamps>
+            <checkTrust>true</checkTrust>
+            <checkRevocationCRL>true</checkRevocationCRL>
+        </signature>
+        <subscriptionCallbacks>
+            <keyDomain></keyDomain>
+            <listenUrl></listenUrl>
+            <autoRegisterBindingTemplate>false</autoRegisterBindingTemplate>
+            <autoRegisterBusinessServiceKey></autoRegisterBusinessServiceKey>
+            <signatureBehavior>DoNothing</signatureBehavior>
+            <!--valid values are AbortIfSigned,Sign,DoNothing,SignOnlyIfParentIsntSigned, default is DoNothing-->
+        </subscriptionCallbacks>
+        <XtoWsdl>
+            <IgnoreSSLErrors>false</IgnoreSSLErrors>
+        </XtoWsdl>
     </client>
-    
-    
+
+
     <!-- hi there!
     this section is required by juddi admin page and is an extension of what the normal juddi-client does.
     it's not in the standard config schema.
     
     -->
     <config>
-        
+
         <props>
             <!--#required. if this uddi client is connected to uddi services that use the auth token, then set to UDDI_AUTH
             #if not, set authtype to HTTP-->

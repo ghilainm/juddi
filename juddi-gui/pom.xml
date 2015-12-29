@@ -20,10 +20,6 @@ language governing permissions and * limitations under the License. * */ -->
     <name>jUDDI GUI WAR construction</name>
     <url>http://juddi.apache.org</url>
 
-    <properties>
-        <juddi.security.role>uddiadmin</juddi.security.role>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.apache.juddi</groupId>
@@ -95,7 +91,6 @@ language governing permissions and * limitations under the License. * */ -->
         <resources>
             <resource>
                 <directory>${project.basedir}/src/main/resources</directory>
-                <filtering>true</filtering>
             </resource>
         </resources>
         <plugins>
@@ -151,7 +146,6 @@ language governing permissions and * limitations under the License. * */ -->
                     <webResources>
                         <resource>
                             <directory>${project.basedir}/src/main/webapp</directory>
-                            <filtering>true</filtering>
                         </resource>
                     </webResources>
                 </configuration>
@@ -218,7 +212,6 @@ language governing permissions and * limitations under the License. * */ -->
                                 </resource>
                                 <resource>
                                     <directory>${project.basedir}/src/main/webapp</directory>
-                                    <filtering>true</filtering>
                                 </resource>
                             </webResources>
                         </configuration>
@@ -245,7 +238,6 @@ language governing permissions and * limitations under the License. * */ -->
                                 </resource>
                                 <resource>
                                     <directory>${project.basedir}/src/main/webapp</directory>
-                                    <filtering>true</filtering>
                                 </resource>
                             </webResources>
                         </configuration>
