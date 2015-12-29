@@ -70,9 +70,7 @@ public class UDDI_040_PerformanceIntegrationTest {
 
         }
         writer.close();
-        f = null;
         TckCommon.PrintMarker();
-
     }
 
     @BeforeClass
