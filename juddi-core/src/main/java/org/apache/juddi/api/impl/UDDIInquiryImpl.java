@@ -17,15 +17,6 @@
 
 package org.apache.juddi.api.impl;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.jws.WebService;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-import javax.xml.bind.JAXB;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -38,27 +29,17 @@ import org.apache.juddi.mapping.MappingModelToApi;
 import org.apache.juddi.v3.error.ErrorMessage;
 import org.apache.juddi.v3.error.InvalidKeyPassedException;
 import org.apache.juddi.validation.ValidateInquiry;
-import org.uddi.api_v3.BindingDetail;
-import org.uddi.api_v3.BusinessDetail;
-import org.uddi.api_v3.BusinessList;
-import org.uddi.api_v3.FindBinding;
-import org.uddi.api_v3.FindBusiness;
-import org.uddi.api_v3.FindRelatedBusinesses;
-import org.uddi.api_v3.FindService;
-import org.uddi.api_v3.FindTModel;
-import org.uddi.api_v3.GetBindingDetail;
-import org.uddi.api_v3.GetBusinessDetail;
-import org.uddi.api_v3.GetOperationalInfo;
-import org.uddi.api_v3.GetServiceDetail;
-import org.uddi.api_v3.GetTModelDetail;
-import org.uddi.api_v3.OperationalInfos;
-import org.uddi.api_v3.RelatedBusinessesList;
-import org.uddi.api_v3.ServiceDetail;
-import org.uddi.api_v3.ServiceList;
-import org.uddi.api_v3.TModelDetail;
-import org.uddi.api_v3.TModelList;
+import org.uddi.api_v3.*;
 import org.uddi.v3_service.DispositionReportFaultMessage;
 import org.uddi.v3_service.UDDIInquiryPortType;
+
+import javax.jws.WebService;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.xml.bind.JAXB;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.util.List;
 
 
 /**
@@ -124,7 +105,8 @@ public class UDDIInquiryImpl extends AuthenticatedService implements UDDIInquiry
          }
          
          
-    public BindingDetail findBinding(FindBinding body)
+    @Override
+	public BindingDetail findBinding(FindBinding body)
 			throws DispositionReportFaultMessage {
                 long startTime = System.currentTimeMillis();
                 try {
@@ -178,7 +160,8 @@ public class UDDIInquiryImpl extends AuthenticatedService implements UDDIInquiry
 	}
 
 	
-    public BusinessList findBusiness(FindBusiness body)
+    @Override
+	public BusinessList findBusiness(FindBusiness body)
 			throws DispositionReportFaultMessage {
                 long startTime = System.currentTimeMillis();
                 try {
@@ -226,7 +209,8 @@ public class UDDIInquiryImpl extends AuthenticatedService implements UDDIInquiry
 	}
 
 	
-    public RelatedBusinessesList findRelatedBusinesses(FindRelatedBusinesses body)
+    @Override
+	public RelatedBusinessesList findRelatedBusinesses(FindRelatedBusinesses body)
 			throws DispositionReportFaultMessage {
                 long startTime = System.currentTimeMillis();
                 try {
@@ -267,7 +251,8 @@ public class UDDIInquiryImpl extends AuthenticatedService implements UDDIInquiry
 	}
 
 	
-    public ServiceList findService(FindService body)
+    @Override
+	public ServiceList findService(FindService body)
 			throws DispositionReportFaultMessage {
                 long startTime = System.currentTimeMillis();
                 try {
@@ -322,7 +307,8 @@ public class UDDIInquiryImpl extends AuthenticatedService implements UDDIInquiry
 	}
 
 	
-    public TModelList findTModel(FindTModel body)
+    @Override
+	public TModelList findTModel(FindTModel body)
 			throws DispositionReportFaultMessage {
                 long startTime = System.currentTimeMillis();
                 try {
@@ -362,7 +348,8 @@ public class UDDIInquiryImpl extends AuthenticatedService implements UDDIInquiry
 	}
 
 	
-    public BindingDetail getBindingDetail(GetBindingDetail body)
+    @Override
+	public BindingDetail getBindingDetail(GetBindingDetail body)
 			throws DispositionReportFaultMessage {
                 long startTime = System.currentTimeMillis();
                 try {
@@ -413,7 +400,8 @@ public class UDDIInquiryImpl extends AuthenticatedService implements UDDIInquiry
 	}
 
 	
-    public BusinessDetail getBusinessDetail(GetBusinessDetail body)
+    @Override
+	public BusinessDetail getBusinessDetail(GetBusinessDetail body)
 			throws DispositionReportFaultMessage {
                 long startTime = System.currentTimeMillis();
                 try {
@@ -464,7 +452,8 @@ public class UDDIInquiryImpl extends AuthenticatedService implements UDDIInquiry
 	}
 
 	
-    public OperationalInfos getOperationalInfo(GetOperationalInfo body)
+    @Override
+	public OperationalInfos getOperationalInfo(GetOperationalInfo body)
 			throws DispositionReportFaultMessage {
                 long startTime = System.currentTimeMillis();
                 try {
@@ -515,7 +504,8 @@ public class UDDIInquiryImpl extends AuthenticatedService implements UDDIInquiry
 	}
 
 	
-    public ServiceDetail getServiceDetail(GetServiceDetail body)
+    @Override
+	public ServiceDetail getServiceDetail(GetServiceDetail body)
 			throws DispositionReportFaultMessage {
         long startTime = System.currentTimeMillis();
         try {
@@ -567,7 +557,8 @@ public class UDDIInquiryImpl extends AuthenticatedService implements UDDIInquiry
 	}
 
 	
-    public TModelDetail getTModelDetail(GetTModelDetail body)
+    @Override
+	public TModelDetail getTModelDetail(GetTModelDetail body)
 			throws DispositionReportFaultMessage {
                 long startTime = System.currentTimeMillis();
                 try {

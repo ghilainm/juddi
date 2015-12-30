@@ -446,6 +446,7 @@ under the License.
                 <activeByDefault>true</activeByDefault>
             </activation>
             <modules>
+                <module>juddi-oracle-web-services</module>
                 <module>uddi-tck</module>
                 <module>uddi-tck-weblogic-oracle</module>
             </modules>
