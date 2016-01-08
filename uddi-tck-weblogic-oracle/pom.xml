@@ -6,6 +6,7 @@
         <groupId>org.apache.juddi</groupId>
         <artifactId>juddi-parent</artifactId>
         <version>3.3.3-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>uddi-tck-weblogic-oracle</artifactId>
     <name>UDDI TCK Test Runner for weblogic oracle</name>
