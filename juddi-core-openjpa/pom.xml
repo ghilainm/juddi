@@ -53,7 +53,7 @@
                             org.apache.juddi.query.util, org.apache.juddi.rmi, org.apache.juddi.subscription,
                             org.apache.juddi.replication, org.apache.juddi.subscription.notify,
                             org.apache.juddi.validation,org.apache.juddi.validation.vsv, org.apache.juddi.v3.auth,
-                            org.apache.juddi.v3.error
+                            org.apache.juddi.v3.error, org.apache.juddi.utils
                         </Export-Package>
                         <Include-Resource>juddi_install_data=target/classes/juddi_install_data,
                             target/classes/messages.properties

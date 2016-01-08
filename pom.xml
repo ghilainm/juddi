@@ -216,8 +216,12 @@ under the License.
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
+                    <!--TODO- Remove when JavaDoc fixed
+                            Necessary to build with Java 8 because now the JavaDoc is checked for completeness and
+                            it is not the case for all the classes in JUDDI -->
                     <configuration>
                         <aggregate>true</aggregate>
+                        <additionalparam>-Xdoclint:none</additionalparam>
                     </configuration>
                     <executions>
                         <execution>
@@ -535,13 +539,15 @@ under the License.
                         <version>0.11</version>
                         <configuration>
                             <excludes>
-
+                                <exclude>**/*.iml</exclude>
                                 <exclude>**/*.ddl</exclude>
                                 <exclude>Doxyfile</exclude>
                                 <exclude>**/*log</exclude>
                                 <exclude>*.log</exclude>
                                 <exclude>qa/*.*</exclude>
                                 <exclude>qa/**/*.*</exclude>
+                                <exclude>misc/JUDDI_UI.psd</exclude>
+                                <exclude>juddi-client.net/packages/NUnit.2.6.2/NUnit.2.6.2.nupkg</exclude>
                                 <exclude>juddi-client.net/packages/NUnit.2.6.2/NUnit.2.6.2.nuspec</exclude>
                                 <exclude>juddi-client.net/clean.txt</exclude>
                                 <exclude>juddi-client.net/input.txt</exclude>
