@@ -97,21 +97,21 @@ public class TckTModel {
         }
     }
 
-    private TModel saveTModel(String authInfo, TModel tmIn, boolean force) {
-        boolean exists = false;
-        GetTModelDetail gt1 = new GetTModelDetail();
-        gt1.getTModelKey().add(tmIn.getTModelKey());
-        try {
-            TModelDetail td1 = inquiry.getTModelDetail(gt1);
-            if (td1 != null && !td1.getTModel().isEmpty()) {
-                if (!td1.getTModel().get(0).isDeleted()) {
-                    exists = true;
-                } else {
-                    logger.info("The tModel with key " + tmIn.getTModelKey() + " exists already, but is flagged as deleted. Overwritting");
+        public TModel saveTModel(String authInfo, TModel tmIn, boolean force) {
+                boolean exists = false;
+                GetTModelDetail gt1 = new GetTModelDetail();
+                gt1.getTModelKey().add(tmIn.getTModelKey());
+                try {
+                        TModelDetail td1 = inquiry.getTModelDetail(gt1);
+                        if (td1 != null && !td1.getTModel().isEmpty()) {
+                                if (!td1.getTModel().get(0).isDeleted()) {
+                                        exists = true;
+                                } else {
+                                        logger.info("The tModel with key " + tmIn.getTModelKey() + " exists already, but is flagged as deleted. Overwritting");
+                                }
+                        }
+                } catch (Exception ex) {
                 }
-            }
-        } catch (Exception ex) {
-        }
 
         if (!exists || force) // Add the tModel
         {
