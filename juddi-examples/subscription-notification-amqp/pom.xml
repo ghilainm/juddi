@@ -12,7 +12,7 @@
 	<parent>
 		<groupId>org.apache.juddi.example</groupId>
 		<artifactId>juddi-examples</artifactId>
-		<version>3.3.3-TATAFng</version>
+		<version>3.3.3-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>subscription-notification-amqp</artifactId>
