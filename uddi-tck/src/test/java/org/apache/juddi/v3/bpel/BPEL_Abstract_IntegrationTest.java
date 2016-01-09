@@ -24,7 +24,7 @@ public class BPEL_Abstract_IntegrationTest {
     protected static TckBusiness tckBusiness = null;
     protected static String authInfoRiftSaw = null;
     protected static UDDIClient manager;
-    static ReadWSDL rw;
+    static ReadWSDL rw = new ReadWSDL();;
 
     protected void assumeBPELEnabled() {
         boolean bpelEnabled = TckPublisher.isBPELEnabled();
@@ -62,6 +62,5 @@ public class BPEL_Abstract_IntegrationTest {
         } catch (Exception e) {
             throw new RuntimeException("Could not get authentication token", e);
         }
-        rw = new ReadWSDL();
     }
 }

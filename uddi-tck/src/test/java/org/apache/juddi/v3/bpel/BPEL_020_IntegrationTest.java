@@ -14,7 +14,6 @@
  */
 package org.apache.juddi.v3.bpel;
 
-import junit.framework.Assert;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -25,7 +24,9 @@ import org.apache.juddi.v3.client.transport.TransportException;
 import org.apache.juddi.v3.tck.TckBusiness;
 import org.apache.juddi.v3.tck.TckPublisher;
 import org.apache.juddi.v3.tck.TckTModel;
+import org.hamcrest.CoreMatchers;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -67,25 +68,12 @@ public class BPEL_020_IntegrationTest extends BPEL_Abstract_IntegrationTest {
 
     @Test
     public void parseWSDL_PortTypeTModels() throws WSDLException, Exception {
-
         Definition wsdlDefinition = rw.readWSDL("uddi_data/bpel/riftsaw/bpel-technote.wsdl");
-        @SuppressWarnings("unchecked")
         Map<QName, PortType> portTypes = (Map<QName, PortType>) wsdlDefinition.getAllPortTypes();
         String ns = wsdlDefinition.getTargetNamespace();
-        System.out.println("Namespace: " + ns);
-
-        int i = 0;
-        for (QName qName : portTypes.keySet()) {
-            String nsp = qName.getNamespaceURI();
-            String localpart = qName.getLocalPart();
-            System.out.println("Namespace: " + nsp);
-            System.out.println("LocalPart: " + localpart);
-            if (i++ == 0) {
-                Assert.assertEquals("InterfaceOfTravelAgent", localpart);
-            } else {
-                Assert.assertEquals("InterfaceOfCustomer", localpart);
-            }
-        }
+        QName interfaceOfCustomerQName = new QName("http://example.com/travelagent/wsdl", "InterfaceOfCustomer");
+        QName interfaceOfTravelAgent = new QName("http://example.com/travelagent/wsdl", "InterfaceOfTravelAgent");
+        Assert.assertThat("The WSDL parsing must return the two interfaces.", portTypes.keySet(), CoreMatchers.hasItems(interfaceOfCustomerQName, interfaceOfTravelAgent));
     }
 
     @Test
