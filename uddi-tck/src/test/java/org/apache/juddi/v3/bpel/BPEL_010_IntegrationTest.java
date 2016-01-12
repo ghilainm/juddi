@@ -16,7 +16,6 @@ package org.apache.juddi.v3.bpel;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.juddi.v3.client.config.UDDIClient;
 import org.apache.juddi.v3.tck.TckBusiness;
 import org.apache.juddi.v3.tck.TckBusinessService;
 import org.apache.juddi.v3.tck.TckTModel;
@@ -28,12 +27,7 @@ import org.junit.Test;
  */
 public class BPEL_010_IntegrationTest extends BPEL_Abstract_IntegrationTest{
 
-    private static TckTModel tckTModel = null;
-    private static TckBusinessService tckService = null;
-    private static TckBusiness tckBusiness = null;
     private static Log logger = LogFactory.getLog(BPEL_010_IntegrationTest.class);
-    private static String authInfoRiftSaw = null;
-    private static UDDIClient manager;
 
     @Before
     public void checkTestMustBeRun(){

@@ -43,8 +43,9 @@ public class RegistryServlet implements ServletContextListener {
         try {
             Registry.start();
         } catch (ConfigurationException e) {
-            logger.error("jUDDI registry could not be started."
+            logger.fatal("jUDDI registry could not be started."
                     + e.getMessage(), e);
+            throw new RuntimeException("jUDDI registry could not be started.", e);
         }
     }
 
@@ -53,8 +54,9 @@ public class RegistryServlet implements ServletContextListener {
         try {
             Registry.stop();
         } catch (ConfigurationException e) {
-            logger.error("jUDDI registry could not be stopped."
+            logger.fatal("jUDDI registry could not be stopped."
                     + e.getMessage(), e);
+            throw new RuntimeException("jUDDI registry could not be stopped.", e);
         }
     }
 }

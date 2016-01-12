@@ -15,23 +15,22 @@
  */
 package org.apache.juddi.servlets;
 
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.juddi.Registry;
 
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+
 /**
  * This servlet is ONLY used to initialize the jUDDI webapp on startup and
  * cleanup the jUDDI webapp on shutdown.
- * 
+ *
  * @author Steve Viens (sviens@apache.org)
  */
-public class RegistryServlet extends HttpServlet {
-	
+public class RegistryServlet implements ServletContextListener {
+
 	private static final long serialVersionUID = 4653310291840334765L;
 	private static Log logger = LogFactory.getLog(RegistryServlet.class);
 
@@ -40,26 +39,24 @@ public class RegistryServlet extends HttpServlet {
 	 * "init()" method to initialize all core components.
 	 */
 	@Override
-	public void init(ServletConfig config) throws ServletException {
-		super.init(config);
+	public void contextInitialized(ServletContextEvent servletContextEvent) {
 		try {
 			Registry.start();
 		} catch (ConfigurationException e) {
-			logger.error("jUDDI registry could not be started."
+			logger.fatal("jUDDI registry could not be started."
 					+ e.getMessage(), e);
-			throw new ServletException(e.getMessage(),e);
+			throw new RuntimeException("jUDDI registry could not be started.", e);
 		}
 	}
-	
+
 	@Override
-	public void destroy() {
+	public void contextDestroyed(ServletContextEvent servletContextEvent) {
 		try {
 			Registry.stop();
 		} catch (ConfigurationException e) {
-			logger.error("jUDDI registry could not be stopped."
+			logger.fatal("jUDDI registry could not be stopped."
 					+ e.getMessage(), e);
+			throw new RuntimeException("jUDDI registry could not be stopped.", e);
 		}
-		super.destroy();
 	}
-
 }

@@ -232,7 +232,6 @@
 
                         String[] classArray = {
                             "org.apache.juddi.servlets.RegistryServlet",
-                            "org.apache.juddi.servlets.NotifyServlet",
                             "org.apache.axis.transport.http.AxisServlet",
                             "org.springframework.web.context.ContextLoaderListener",
                             "org.apache.cxf.transport.servlet.CXFServlet",
